@@ -1,0 +1,33 @@
+ul {
+  a {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    color: var(--color__text);
+
+    &:hover {
+      color: var(--color__primary);
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+
+      &.identify {
+        flex-direction: column;
+        align-items: unset;
+      }
+    }
+
+    .company {
+      color: var(--color__icon);
+    }
+
+    .status {
+      color: var(--color__icon);
+    }
+  }
+}

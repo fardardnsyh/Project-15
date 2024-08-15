@@ -1,0 +1,10 @@
+<mat-slide-toggle
+  color="primary"
+  matTooltip="Change theme"
+  [checked]="isDarkMode"
+  (change)="toggleTheme()"
+>
+  <span *ngIf="!isBreakpointMobile">
+    {{ currentThemeMode$.getValue() }}
+  </span>
+</mat-slide-toggle>

@@ -1,0 +1,17 @@
+<div [ngClass]="['offer', breakpoint$ | async]" *ngIf="offer$ | async as offer">
+  <ng-container>
+    <jhh-edit-offer></jhh-edit-offer>
+    <jhh-remove-offers></jhh-remove-offers>
+  </ng-container>
+  <div class="offer__container">
+    <jhh-offer-status-updates [updates]="offer.statusUpdates"></jhh-offer-status-updates>
+    <div class="offer__content cornerDecoration cornerDecoration--rightLeft">
+      <div class="offer__top">
+        <jhh-offer-header [position]="offer.position" [company]="offer.company"></jhh-offer-header>
+        <jhh-offer-controls [offer]="offer"></jhh-offer-controls>
+      </div>
+      <jhh-offer-details [offer]="offer" [breakpoint]="(breakpoint$ | async)!"></jhh-offer-details>
+      <jhh-offer-description *ngIf="offer.description" [description]="offer.description"></jhh-offer-description>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<ng-container *ngIf="relatedNotes?.length">
+  <div class="relatedNotes">
+    <h2>Related notes</h2>
+    <div class="relatedNotes__slider">
+      <button
+        mat-mini-fab
+        color="primary"
+        aria-label="Move left"
+        class="relatedNotes__arrow relatedNotes__arrow--left"
+      >
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <div class="swiper">
+        <div class="relatedNotes__swiper swiper-container">
+          <div class="swiper-wrapper">
+            <div *ngFor="let note of relatedNotes; trackBy: trackByFn" class="swiper-slide"
+                 (click)="navigateToRelatedNote(note)">
+              <jhh-note-card [note]="note"></jhh-note-card>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        mat-mini-fab
+        color="primary"
+        aria-label="Move right"
+        class="relatedNotes__arrow relatedNotes__arrow--right"
+      >
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-container>

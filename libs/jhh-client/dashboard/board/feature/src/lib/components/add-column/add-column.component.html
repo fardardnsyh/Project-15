@@ -1,0 +1,70 @@
+<div>
+  <div class="buttonContainer">
+    <button mat-fab color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Add new column</h2>
+    <mat-dialog-content>
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Column name</mat-label>
+          <input matInput [formControlName]="formField.Name" whitespaceSanitizer required/>
+          <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.Required)">
+            Column name is required
+          </mat-error>
+          <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.MinLength)">
+            Minimum length of column name is {{fieldLength.MinColumnNameLength}} characters
+          </mat-error>
+          <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.MaxLength)">
+            Maximum length of column name is {{fieldLength.MaxColumnNameLength}} characters
+          </mat-error>
+        </mat-form-field>
+
+        <div class="formColorsRow">
+          <mat-form-field class="fieldColor" appearance="fill">
+            <mat-label>Color</mat-label>
+            <input type="color" matInput [formControlName]="formField.Color" required/>
+            <mat-error *ngIf="formGroup.get(formField.Color)?.hasError(formErrorKey.InvalidColor)">
+              Invalid color
+            </mat-error>
+          </mat-form-field>
+
+          <div class="defaultColors">
+            <button
+              type="button"
+              *ngFor="let color of defaultColorValues"
+              [style.background]="color"
+              (click)="selectDefaultColor($any(color))">
+            </button>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="(addBoardColumnInProgress$ | async) || (addBoardColumnError$ | async)">
+          <mat-progress-spinner *ngIf="addBoardColumnInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+          <mat-error *ngIf="addBoardColumnError$ | async as error">{{ error }}</mat-error>
+        </ng-container>
+
+        <mat-dialog-actions>
+          <button mat-stroked-button mat-dialog-close>
+            Cancel
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="formGroup.invalid || (addBoardColumnInProgress$ | async)"
+          >
+            Add
+          </button>
+        </mat-dialog-actions>
+
+      </form>
+    </mat-dialog-content>
+  </ng-template>
+
+</div>

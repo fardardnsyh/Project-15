@@ -1,0 +1,14 @@
+<nav *ngIf="breadcrumbs?.length">
+  <ul>
+    <li *ngFor="let breadcrumb of breadcrumbs; let last = last; let first = first; trackBy: trackByFn">
+      <mat-icon *ngIf="first">home</mat-icon>
+      <ng-container *ngIf="!last; else currentItem">
+        <a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+      </ng-container>
+      <ng-template #currentItem>
+        <span>{{ breadcrumb.label }}</span>
+      </ng-template>
+      <mat-icon *ngIf="!last" class="arrow-icon">keyboard_arrow_right</mat-icon>
+    </li>
+  </ul>
+</nav>

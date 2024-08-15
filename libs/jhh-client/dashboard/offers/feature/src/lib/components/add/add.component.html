@@ -1,0 +1,206 @@
+<div>
+  <div class="buttonContainer">
+    <button mat-fab color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Add new offer</h2>
+    <mat-dialog-content>
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+        <div [ngClass]="['formGrid', breakpoint$ | async]">
+          <mat-form-field appearance="fill">
+            <mat-label>Position</mat-label>
+            <input
+              matInput
+              [formControlName]="formField.Position"
+              [maxlength]="fieldLength.MaxPositionLength"
+              whitespaceSanitizer
+              required
+            />
+            <mat-error *ngIf="formGroup.get(formField.Position)?.hasError(formErrorKey.Required)">
+              Position is required
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Position)?.hasError(formErrorKey.MinLength)">
+              Minimum length of position is {{fieldLength.MinPositionLength}} characters
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Position)?.hasError(formErrorKey.MaxLength)">
+              Maximum length of position is {{fieldLength.MaxPositionLength}} characters
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Link</mat-label>
+            <input matInput [formControlName]="formField.Link" whitespaceSanitizer required/>
+            <mat-error *ngIf="formGroup.get(formField.Link)?.hasError(formErrorKey.Required)">
+              Link is required
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Link)?.hasError(formErrorKey.MaxLength)">
+              Maximum length of link is {{fieldLength.MaxLinkLength}} characters
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Link)?.hasError(formErrorKey.Pattern)">
+              Invalid link
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Company</mat-label>
+            <input
+              matInput
+              [formControlName]="formField.Company"
+              [maxlength]="fieldLength.MaxCompanyLength"
+              whitespaceSanitizer
+              required
+            />
+            <mat-error *ngIf="formGroup.get(formField.Company)?.hasError(formErrorKey.Required)">
+              Company is required
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Company)?.hasError(formErrorKey.MinLength)">
+              Minimum length of company is {{fieldLength.MinCompanyLength}} characters
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Company)?.hasError(formErrorKey.MaxLength)">
+              Maximum length of company is {{fieldLength.MaxCompanyLength}} characters
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Company Type</mat-label>
+            <mat-select [formControlName]="formField.CompanyType" required>
+              <mat-option *ngFor="let type of offerCompanyType" [value]="type">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.get(formField.CompanyType)?.hasError(formErrorKey.Required)">
+              Company type is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select [formControlName]="formField.Status" required>
+              <mat-option *ngFor="let status of offerStatus" [value]="status">
+                {{ status }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.get(formField.Status)?.hasError(formErrorKey.Required)">
+              Status is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>E-mail</mat-label>
+            <input matInput [formControlName]="formField.Email" whitespaceSanitizer/>
+            <mat-error *ngIf="formGroup.get(formField.Email)?.hasError(formErrorKey.MaxLength)">
+              Maximum length of e-mail is {{fieldLength.MaxEmailLength}} characters
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Email)?.hasError(formErrorKey.Pattern)">
+              Invalid e-mail
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Min Salary</mat-label>
+            <input
+              matInput type="number"
+              [min]="fieldLength.MinSalaryValue"
+              [max]="fieldLength.MaxSalaryValue"
+              [formControlName]="formField.MinSalary"
+            />
+            <mat-error *ngIf="formGroup.get(formField.MinSalary)?.hasError(formErrorKey.MinValue)">
+              Minimum value is {{fieldLength.MinSalaryValue}}
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.MinSalary)?.hasError(formErrorKey.MaxValue)">
+              Maximum value is {{fieldLength.MaxSalaryValue}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Max Salary</mat-label>
+            <input
+              matInput type="number"
+              [min]="fieldLength.MinSalaryValue"
+              [max]="fieldLength.MaxSalaryValue"
+              [formControlName]="formField.MaxSalary"
+            />
+            <mat-error *ngIf="formGroup.get(formField.MaxSalary)?.hasError(formErrorKey.MinValue)">
+              Minimum value is {{fieldLength.MinSalaryValue}}
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.MaxSalary)?.hasError(formErrorKey.MaxValue)">
+              Maximum value is {{fieldLength.MaxSalaryValue}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="fullRow" appearance="fill">
+            <mat-label>Salary Currency</mat-label>
+            <mat-select [formControlName]="formField.SalaryCurrency" required>
+              <mat-option *ngFor="let currency of offerSalaryCurrency" [value]="currency">
+                {{ currency }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.get(formField.SalaryCurrency)?.hasError(formErrorKey.Required)">
+              Currency is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="fullRow" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              [formControlName]="formField.Description"
+              [maxlength]="fieldLength.MaxDescriptionLength"
+            >
+            </textarea>
+            <mat-error *ngIf="formGroup.get(formField.Description)?.hasError(formErrorKey.MaxLength)">
+              Maximum length of description is {{fieldLength.MaxDescriptionLength}} characters
+            </mat-error>
+          </mat-form-field>
+
+          <div class="radioRow">
+            <mat-label>Location</mat-label>
+            <mat-radio-group color="primary" [formControlName]="formField.Location" required>
+              <mat-radio-button *ngFor="let location of offerLocation" [value]="location">
+                {{ location }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="formGroup.get(formField.Location)?.hasError(formErrorKey.Required)">
+              Location is required
+            </mat-error>
+          </div>
+
+          <div class="radioRow">
+            <mat-label>Priority</mat-label>
+            <mat-radio-group color="primary" [formControlName]="formField.Priority" required>
+              <mat-radio-button *ngFor="let priority of offerPriority" [value]="priority">
+                {{ priority }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="formGroup.get(formField.Priority)?.hasError(formErrorKey.Required)">
+              Priority is required
+            </mat-error>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="(addOfferInProgress$ | async) || (addOfferError$ | async)">
+          <mat-progress-spinner *ngIf="addOfferInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+          <mat-error *ngIf="addOfferError$ | async as error">{{ error }}</mat-error>
+        </ng-container>
+
+        <mat-dialog-actions>
+          <button mat-stroked-button mat-dialog-close>
+            Cancel
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="formGroup.invalid || (addOfferInProgress$ | async)"
+          >
+            Add
+          </button>
+        </mat-dialog-actions>
+      </form>
+    </mat-dialog-content>
+  </ng-template>
+</div>

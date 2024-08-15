@@ -1,0 +1,25 @@
+<mat-sidenav-container
+  class="sidenav mat-drawer-transition"
+  [ngClass]="{'sidenav--notMobile': ((isBreakpointMobile$ | async) !== true), 'sidenav--expanded': isSidebarExpanded$ | async}">
+  <mat-sidenav
+    mode="side"
+    [opened]="(isSidebarOpened$ | async)!"
+  >
+    <jhh-sidebar-brand
+      *ngIf="!(isBreakpointMobile$ | async)"
+      [isSidebarExpanded]="isSidebarExpanded$ | async"
+    >
+    </jhh-sidebar-brand>
+    <button mat-icon-button *ngIf="isBreakpointMobile$ | async" (click)="handleClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <jhh-sidebar-nav-list
+      [isSidebarExpanded]="isSidebarExpanded$ | async"
+      [isBreakpointMobile]="isBreakpointMobile$ | async"
+    >
+    </jhh-sidebar-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

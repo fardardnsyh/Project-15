@@ -1,0 +1,15 @@
+<div class="icons" *ngIf="icons.length">
+  <mat-divider></mat-divider>
+  <ul>
+    <li *ngFor="let icon of icons">
+      <a
+        [href]="icon.link"
+        [matTooltip]="icon.tooltip"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <mat-icon [svgIcon]="icon.name"></mat-icon>
+      </a>
+    </li>
+  </ul>
+</div>

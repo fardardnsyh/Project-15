@@ -1,0 +1,18 @@
+.paginationControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 60px;
+
+  mat-form-field {
+    margin-bottom: 0;
+    max-width: 100px;
+  }
+
+  button {
+    mat-icon {
+      color: white !important;
+    }
+  }
+}

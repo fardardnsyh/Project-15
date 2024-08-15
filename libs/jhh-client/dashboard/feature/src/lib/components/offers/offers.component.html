@@ -1,0 +1,47 @@
+<div class="box">
+  <h2>Offers</h2>
+  
+  <ng-container *ngIf="extendedOffers.length; else emptyList">
+    <ul>
+      <li *ngFor="let offer of extendedOffers">
+        <a [routerLink]="clientRoute.OffersLink + '/' + offer.slug">
+          <div class="identify">
+            <span>
+              <strong>
+                {{offer.position}}
+              </strong>
+            </span>
+            <span class="company">{{offer.company}}</span>
+          </div>
+          <div style="margin-left: auto">
+            <div>
+              <mat-icon>{{offer.statusIcon}}</mat-icon>
+              <span class="status">{{offer.status}}</span>
+            </div>
+            <span
+              [class]="'offerPriority offerPriority--' + offer.priority"
+              style="margin-left: 8px;"
+            >
+              {{ offer.priority }}
+            </span>
+          </div>
+        </a>
+        <mat-divider></mat-divider>
+      </li>
+    </ul>
+  </ng-container>
+
+  <ng-template #emptyList>
+    <p>No offers found.</p>
+  </ng-template>
+
+  <div class="seeMore">
+    <a mat-flat-button color="primary" *ngIf="!extendedOffers.length" [routerLink]="clientRoute.OffersLink">
+      Add offer
+    </a>
+
+    <a mat-stroked-button *ngIf="extendedOffers.length" [routerLink]="clientRoute.OffersLink">
+      See more
+    </a>
+  </div>
+</div>

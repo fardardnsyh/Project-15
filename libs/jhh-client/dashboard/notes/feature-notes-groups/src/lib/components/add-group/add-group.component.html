@@ -1,0 +1,46 @@
+<div class="addGroup">
+  <button class="addGroup__openBtn" mat-fab color="primary" (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Add new group</h2>
+    <mat-dialog-content>
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Group name</mat-label>
+          <input matInput [formControlName]="formField.Name" whitespaceSanitizer required/>
+          <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.Required)">
+            Group name is required
+          </mat-error>
+          <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.MinLength)">
+            Minimum length of group name is {{fieldLength.MinNameLength}} characters
+          </mat-error>
+          <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.MaxLength)">
+            Maximum length of group name is {{fieldLength.MaxNameLength}} characters
+          </mat-error>
+        </mat-form-field>
+
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="(addNotesGroupInProgress$ | async) || (addNotesGroupError$ | async)">
+          <mat-progress-spinner *ngIf="addNotesGroupInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+          <mat-error *ngIf="addNotesGroupError$ | async as error">{{ error }}</mat-error>
+        </ng-container>
+
+        <mat-dialog-actions>
+          <button mat-stroked-button mat-dialog-close>
+            Cancel
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="formGroup.invalid || (addNotesGroupInProgress$ | async)"
+          >
+            Add
+          </button>
+        </mat-dialog-actions>
+      </form>
+    </mat-dialog-content>
+  </ng-template>
+</div>
+

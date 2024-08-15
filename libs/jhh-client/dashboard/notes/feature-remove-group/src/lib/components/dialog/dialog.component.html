@@ -1,0 +1,72 @@
+<ng-container *ngIf="groupToRemove as group">
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Are you sure you want to remove a group?</h2>
+    <mat-dialog-content>
+      <div class="alert" *ngIf="group.notes.length">
+        <mat-icon>error</mat-icon>
+        <p>
+          All notes in this group will be gone.
+          <br>
+          If you want to keep them, move them to another group first.
+        </p>
+      </div>
+      <ul>
+        <li>
+          <span>
+            <strong>
+              Name:
+            </strong>
+          </span>
+          <span>{{group.name}}</span>
+        </li>
+        <li>
+          <span>
+            <strong>
+              Created at:
+            </strong>
+          </span>
+          <span>{{group.createdAt | date: 'dd.MM.yyyy HH:mm'}}</span>
+        </li>
+        <li>
+          <span>
+            <strong>
+              Updated at:
+            </strong>
+          </span>
+          <span>{{group.updatedAt | date: 'dd.MM.yyyy HH:mm'}}</span>
+        </li>
+        <li>
+          <span>
+            <strong>
+              Amount of notes:
+            </strong>
+          </span>
+          <span>{{group.notes.length}}</span>
+        </li>
+      </ul>
+
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="(removeNotesGroupInProgress$ | async) || (removeNotesGroupError$ | async)">
+        <mat-progress-spinner *ngIf="removeNotesGroupInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+        <mat-error *ngIf="removeNotesGroupError$ | async as error">{{ error }}</mat-error>
+      </ng-container>
+
+      <mat-dialog-actions>
+        <button
+          mat-stroked-button
+          mat-dialog-close
+        >
+          Cancel
+        </button>
+        <button
+          mat-flat-button
+          color="warn"
+          [disabled]="(removeNotesGroupInProgress$ | async)"
+          (click)="handleRemove()"
+        >
+          Remove
+        </button>
+      </mat-dialog-actions>
+    </mat-dialog-content>
+  </ng-template>
+</ng-container>

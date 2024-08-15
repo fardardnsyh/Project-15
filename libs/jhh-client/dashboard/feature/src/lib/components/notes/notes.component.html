@@ -1,0 +1,51 @@
+<div class="box">
+  <h2>Notes</h2>
+
+  <ng-container *ngIf="groups.length; else emptyList">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let group of groups">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span
+              *ngIf="group.notes.length"
+              class="circleCounter circleCounter--static"
+            >
+              {{group.notes.length <= 99 ? group.notes.length : '99+'}}
+            </span>
+            <span>{{group.name}}</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ul>
+          <li *ngFor="let note of group.notes; let i = index" [hidden]="i >= 10">
+            <a [routerLink]="clientRoute.NotesLink + '/' + group.slug + '/' + note.slug">
+              - {{note.name}}
+            </a>
+          </li>
+        </ul>
+        <p class="andMore" *ngIf="group.notes.length > 10">... and more</p>
+        <p *ngIf="!group.notes.length">No notes found.</p>
+        <a
+          [routerLink]="clientRoute.NotesLink + '/' + group.slug"
+          mat-stroked-button
+          class="groupButton"
+        >
+          Go to group
+        </a>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+
+  <ng-template #emptyList>
+    <p>No notes groups found.</p>
+  </ng-template>
+
+  <div class="seeMore">
+    <a *ngIf="!groups.length" mat-flat-button color="primary" [routerLink]="clientRoute.NotesLink">
+      Add group
+    </a>
+
+    <a *ngIf="groups.length" mat-stroked-button [routerLink]="clientRoute.NotesLink">
+      See more
+    </a>
+  </div>
+</div>

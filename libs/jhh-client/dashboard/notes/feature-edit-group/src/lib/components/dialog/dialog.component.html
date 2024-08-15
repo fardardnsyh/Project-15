@@ -1,0 +1,63 @@
+<ng-container *ngIf="groupToEdit">
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Edit group</h2>
+    <mat-dialog-content>
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+        <div [ngClass]="['formGrid', breakpoint$ | async]">
+          <mat-form-field appearance="fill">
+            <mat-label>{{slugPrefix}}</mat-label>
+            <input
+              matInput
+              [formControlName]="formField.Slug"
+              placeholder="Enter slug here"
+              whitespaceSanitizer
+              required
+            >
+            <mat-error *ngIf="formGroup.get(formField.Slug)?.hasError(formErrorKey.Required)">
+              Slug is required
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Slug)?.hasError(formErrorKey.MinLength)">
+              Minimum length of slug is {{fieldLength.MinNameLength}} characters
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Slug)?.hasError(formErrorKey.MaxLength)">
+              Maximum length of slug is {{fieldLength.MaxNameLength + fieldLength.MaxNameAndSlugLengthDiff}}
+              characters
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput [formControlName]="formField.Name" whitespaceSanitizer required>
+            <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.Required)">
+              Name is required
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.MinLength)">
+              Minimum length of name is {{fieldLength.MinNameLength}} characters
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.MaxLength)">
+              Maximum length of name is {{fieldLength.MaxNameLength}} characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="(editNotesGroupInProgress$ | async) || (editNotesGroupError$ | async)">
+          <mat-progress-spinner *ngIf="editNotesGroupInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+          <mat-error *ngIf="editNotesGroupError$ | async as error">{{ error }}</mat-error>
+        </ng-container>
+
+        <mat-dialog-actions>
+          <button mat-stroked-button mat-dialog-close>Cancel</button>
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="formGroup.invalid || (editNotesGroupInProgress$ | async)"
+          >
+            Save
+          </button>
+        </mat-dialog-actions>
+      </form>
+    </mat-dialog-content>
+  </ng-template>
+</ng-container>

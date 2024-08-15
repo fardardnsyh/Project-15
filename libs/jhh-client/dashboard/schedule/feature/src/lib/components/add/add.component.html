@@ -1,0 +1,124 @@
+<div>
+  <button mat-fab color="primary" (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Add new event</h2>
+    <mat-dialog-content>
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+        <div class="formDates">
+          <div class="date">
+            <mat-label>Start Date</mat-label>
+            <input
+              type="text"
+              mwlFlatpickr
+              [formControlName]="formField.Start"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Not set"
+              required
+            />
+            <mat-error *ngIf="formGroup.get(formField.Start)?.hasError(formErrorKey.Required)">
+              Start date is required
+            </mat-error>
+          </div>
+
+          <div class="date">
+            <mat-label>End Date</mat-label>
+            <input
+              type="text"
+              mwlFlatpickr
+              [formControlName]="formField.End"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Not set"
+              required
+            />
+            <mat-error *ngIf="formGroup.get(formField.End)?.hasError(formErrorKey.Required)">
+              End date is required
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.End)?.hasError(formErrorKey.InvalidDateRange)">
+              The end date cannot be earlier than the start date.
+            </mat-error>
+          </div>
+        </div>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Title</mat-label>
+          <input matInput [formControlName]="formField.Title" whitespaceSanitizer required/>
+          <mat-error *ngIf="formGroup.get(formField.Title)?.hasError(formErrorKey.Required)">
+            Title is required
+          </mat-error>
+          <mat-error *ngIf="formGroup.get(formField.Title)?.hasError(formErrorKey.MinLength)">
+            Minimum length of title is {{fieldLength.MinTitleLength}} characters
+          </mat-error>
+          <mat-error *ngIf="formGroup.get(formField.Title)?.hasError(formErrorKey.MaxLength)">
+            Maximum length of title is {{fieldLength.MaxTitleLength}} characters
+          </mat-error>
+        </mat-form-field>
+
+        <div class="formColorsRow">
+          <mat-form-field class="fieldColor" appearance="fill">
+            <mat-label>Color</mat-label>
+            <input type="color" matInput [formControlName]="formField.Color" required/>
+            <mat-error *ngIf="formGroup.get(formField.Color)?.hasError(formErrorKey.InvalidColor)">
+              Invalid color
+            </mat-error>
+          </mat-form-field>
+
+          <div class="defaultColors">
+            <button
+              type="button"
+              *ngFor="let color of defaultColorValues"
+              [style.background]="color"
+              (click)="selectDefaultColor($any(color))">
+            </button>
+          </div>
+        </div>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            [formControlName]="formField.Description"
+            [maxlength]="fieldLength.MaxDescriptionLength"
+          >
+          </textarea>
+          <mat-error *ngIf="formGroup.get(formField.Description)?.hasError(formErrorKey.MaxLength)">
+            Maximum length of description is {{fieldLength.MaxDescriptionLength}} characters
+          </mat-error>
+        </mat-form-field>
+
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="(addEventInProgress$ | async) || (addEventError$ | async)">
+          <mat-progress-spinner *ngIf="addEventInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+          <mat-error *ngIf="addEventError$ | async as error">{{ error }}</mat-error>
+        </ng-container>
+
+        <mat-dialog-actions>
+          <button mat-stroked-button mat-dialog-close>
+            Cancel
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="formGroup.invalid || (addEventInProgress$ | async)"
+          >
+            Add
+          </button>
+        </mat-dialog-actions>
+
+      </form>
+    </mat-dialog-content>
+  </ng-template>
+  
+</div>

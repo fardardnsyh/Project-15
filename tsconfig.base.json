@@ -1,0 +1,297 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@jhh/jhh-client/auth/data-access": [
+        "libs/jhh-client/auth/data-access/src/index.ts"
+      ],
+      "@jhh/jhh-client/auth/domain": [
+        "libs/jhh-client/auth/domain/src/index.ts"
+      ],
+      "@jhh/jhh-client/auth/feature-login": [
+        "libs/jhh-client/auth/feature-login/src/index.ts"
+      ],
+      "@jhh/jhh-client/auth/feature-register": [
+        "libs/jhh-client/auth/feature-register/src/index.ts"
+      ],
+      "@jhh/jhh-client/auth/public": [
+        "libs/jhh-client/auth/public/src/index.ts"
+      ],
+      "@jhh/jhh-client/auth/shell": ["libs/jhh-client/auth/shell/src/index.ts"],
+      "@jhh/jhh-client/auth/ui-template": [
+        "libs/jhh-client/auth/ui-template/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/board/data-access": [
+        "libs/jhh-client/dashboard/board/data-access/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/board/domain": [
+        "libs/jhh-client/dashboard/board/domain/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/board/feature": [
+        "libs/jhh-client/dashboard/board/feature/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/board/shell": [
+        "libs/jhh-client/dashboard/board/shell/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/data-access": [
+        "libs/jhh-client/dashboard/data-access/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/domain": [
+        "libs/jhh-client/dashboard/domain/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/feature": [
+        "libs/jhh-client/dashboard/feature/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/feature-breadcrumbs": [
+        "libs/jhh-client/dashboard/feature-breadcrumbs/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/feature-footer": [
+        "libs/jhh-client/dashboard/feature-footer/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/feature-pagination": [
+        "libs/jhh-client/dashboard/feature-pagination/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/feature-searchbar": [
+        "libs/jhh-client/dashboard/feature-searchbar/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/feature-sidebar": [
+        "libs/jhh-client/dashboard/feature-sidebar/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/feature-sorting": [
+        "libs/jhh-client/dashboard/feature-sorting/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/feature-title": [
+        "libs/jhh-client/dashboard/feature-title/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/feature-toolbar": [
+        "libs/jhh-client/dashboard/feature-toolbar/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/data-access": [
+        "libs/jhh-client/dashboard/notes/data-access/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/domain": [
+        "libs/jhh-client/dashboard/notes/domain/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/feature-change-note-group": [
+        "libs/jhh-client/dashboard/notes/feature-change-note-group/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/feature-content-editor": [
+        "libs/jhh-client/dashboard/notes/feature-content-editor/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/feature-edit-group": [
+        "libs/jhh-client/dashboard/notes/feature-edit-group/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/feature-edit-note": [
+        "libs/jhh-client/dashboard/notes/feature-edit-note/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/feature-notes-group": [
+        "libs/jhh-client/dashboard/notes/feature-notes-group/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/feature-notes-groups": [
+        "libs/jhh-client/dashboard/notes/feature-notes-groups/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/feature-remove-group": [
+        "libs/jhh-client/dashboard/notes/feature-remove-group/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/feature-remove-note": [
+        "libs/jhh-client/dashboard/notes/feature-remove-note/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/feature-single-note": [
+        "libs/jhh-client/dashboard/notes/feature-single-note/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/shell": [
+        "libs/jhh-client/dashboard/notes/shell/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/notes/ui-note-card": [
+        "libs/jhh-client/dashboard/notes/ui-note-card/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/offers/data-access": [
+        "libs/jhh-client/dashboard/offers/data-access/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/offers/domain": [
+        "libs/jhh-client/dashboard/offers/domain/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/offers/feature": [
+        "libs/jhh-client/dashboard/offers/feature/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/offers/feature-edit-offer": [
+        "libs/jhh-client/dashboard/offers/feature-edit-offer/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/offers/feature-remove-offers": [
+        "libs/jhh-client/dashboard/offers/feature-remove-offers/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/offers/feature-single-offer": [
+        "libs/jhh-client/dashboard/offers/feature-single-offer/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/offers/shell": [
+        "libs/jhh-client/dashboard/offers/shell/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/offers/util-format-offer-salary": [
+        "libs/jhh-client/dashboard/offers/util-format-offer-salary/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/offers/util-get-offer-status-icon": [
+        "libs/jhh-client/dashboard/offers/util-get-offer-status-icon/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/data-access": [
+        "libs/jhh-client/dashboard/practice/data-access/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/domain": [
+        "libs/jhh-client/dashboard/practice/domain/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/feature": [
+        "libs/jhh-client/dashboard/practice/feature/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/feature-edit-quiz": [
+        "libs/jhh-client/dashboard/practice/feature-edit-quiz/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/feature-remove-quiz": [
+        "libs/jhh-client/dashboard/practice/feature-remove-quiz/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/feature-single-quiz": [
+        "libs/jhh-client/dashboard/practice/feature-single-quiz/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/feature/feature-edit-quiz": [
+        "libs/jhh-client/dashboard/practice/feature/feature-edit-quiz/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/shell": [
+        "libs/jhh-client/dashboard/practice/shell/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/util-answers-validator": [
+        "libs/jhh-client/dashboard/practice/util-answers-validator/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/util-get-percentage-class": [
+        "libs/jhh-client/dashboard/practice/util-get-percentage-class/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/practice/util-unique-answer-validator": [
+        "libs/jhh-client/dashboard/practice/util-unique-answer-validator/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/schedule/data-access": [
+        "libs/jhh-client/dashboard/schedule/data-access/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/schedule/domain": [
+        "libs/jhh-client/dashboard/schedule/domain/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/schedule/feature": [
+        "libs/jhh-client/dashboard/schedule/feature/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/schedule/shell": [
+        "libs/jhh-client/dashboard/schedule/shell/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/schedule/util-date-range-validator": [
+        "libs/jhh-client/dashboard/schedule/util-date-range-validator/src/index.ts"
+      ],
+      "@jhh/jhh-client/dashboard/shell": [
+        "libs/jhh-client/dashboard/shell/src/index.ts"
+      ],
+      "@jhh/jhh-client/feature-not-found": [
+        "libs/jhh-client/feature-not-found/src/index.ts"
+      ],
+      "@jhh/jhh-client/not-found": ["libs/jhh-client/not-found/src/index.ts"],
+      "@jhh/jhh-client/shared/config": [
+        "libs/jhh-client/shared/config/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/domain": [
+        "libs/jhh-client/shared/domain/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/pipes": [
+        "libs/jhh-client/shared/pipes/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-breakpoint": [
+        "libs/jhh-client/shared/util-breakpoint/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-click-outside": [
+        "libs/jhh-client/shared/util-click-outside/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-color-validator": [
+        "libs/jhh-client/shared/util-color-validator/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-enum-validator": [
+        "libs/jhh-client/shared/util-enum-validator/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-image-url-validator": [
+        "libs/jhh-client/shared/util-image-url-validator/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-max-size-validator": [
+        "libs/jhh-client/shared/util-max-size-validator/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-min-array-length-validator": [
+        "libs/jhh-client/shared/util-min-array-length-validator/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-ngrx": [
+        "libs/jhh-client/shared/util-ngrx/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-reset-operation-state-error": [
+        "libs/jhh-client/shared/util-reset-operation-state-error/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-snackbar": [
+        "libs/jhh-client/shared/util-snackbar/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-strip-html": [
+        "libs/jhh-client/shared/util-strip-html/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-theme": [
+        "libs/jhh-client/shared/util-theme/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-whitespace-sanitizer": [
+        "libs/jhh-client/shared/util-whitespace-sanitizer/src/index.ts"
+      ],
+      "@jhh/jhh-client/shared/util-whitespace-validator": [
+        "libs/jhh-client/shared/util-whitespace-validator/src/index.ts"
+      ],
+      "@jhh/jhh-server/app": ["libs/jhh-server/app/src/index.ts"],
+      "@jhh/jhh-server/controller/board": [
+        "libs/jhh-server/controller/board/src/index.ts"
+      ],
+      "@jhh/jhh-server/controller/dashboard": [
+        "libs/jhh-server/controller/dashboard/src/index.ts"
+      ],
+      "@jhh/jhh-server/controller/notes": [
+        "libs/jhh-server/controller/notes/src/index.ts"
+      ],
+      "@jhh/jhh-server/controller/offers": [
+        "libs/jhh-server/controller/offers/src/index.ts"
+      ],
+      "@jhh/jhh-server/controller/practice": [
+        "libs/jhh-server/controller/practice/src/index.ts"
+      ],
+      "@jhh/jhh-server/controller/schedule": [
+        "libs/jhh-server/controller/schedule/src/index.ts"
+      ],
+      "@jhh/jhh-server/controller/user": [
+        "libs/jhh-server/controller/user/src/index.ts"
+      ],
+      "@jhh/jhh-server/db": ["libs/jhh-server/db/src/index.ts"],
+      "@jhh/jhh-server/middleware/auth": [
+        "libs/jhh-server/middleware/auth/src/index.ts"
+      ],
+      "@jhh/jhh-server/router/api": ["libs/jhh-server/router/api/src/index.ts"],
+      "@jhh/jhh-server/router/user": [
+        "libs/jhh-server/router/user/src/index.ts"
+      ],
+      "@jhh/jhh-server/shared/utils": [
+        "libs/jhh-server/shared/utils/src/index.ts"
+      ],
+      "@jhh/shared/dom-purify-config": [
+        "libs/shared/dom-purify-config/src/index.ts"
+      ],
+      "@jhh/shared/domain": ["libs/shared/domain/src/index.ts"],
+      "@jhh/shared/regex": ["libs/shared/regex/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

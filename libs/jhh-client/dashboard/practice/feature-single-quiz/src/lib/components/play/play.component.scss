@@ -1,0 +1,158 @@
+.playContainer {
+  max-width: 1440px;
+  margin-top: 25px;
+
+  &.tablet,
+  &.desktop {
+    form {
+      mat-radio-group,
+      .checkboxes {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+
+  header {
+    background-color: var(--color__bg);
+    border-radius: var(--radius__base);
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 700px;
+
+    img {
+      height: 50px;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .question {
+    margin-bottom: 20px;
+  }
+
+  .questionsNavigation {
+    margin-top: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    button {
+      background-color: transparent;
+      border: 1px solid var(--color__divider);
+      padding: 4px 10px;
+      color: var(--color__icon);
+      transition: all 0.3s;
+
+      &.current {
+        color: var(--color__primary);
+        border-color: var(--color__primary);
+      }
+
+      &.answered {
+        text-decoration: line-through;
+        color: var(--color__text);
+      }
+    }
+  }
+
+  form {
+    mat-radio-group,
+    .checkboxes {
+      display: grid;
+      gap: 12px;
+
+      ::ng-deep {
+        .mdc-form-field {
+          height: 100%;
+          width: 100%;
+          background-color: var(--color__bg);
+          border-radius: var(--radius__base);
+
+          .mdc-label {
+            height: 100%;
+            display: flex;
+            align-items: center;
+          }
+
+          .mdc-label {
+            flex-grow: 1;
+            padding: 12px 12px 12px 0;
+          }
+        }
+      }
+    }
+  }
+
+  .buttons {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    .result {
+      mat-icon {
+        color: white !important;
+      }
+    }
+
+    .quit {
+      margin-left: auto;
+    }
+  }
+
+  .results {
+    background-color: var(--color__bg);
+    border-radius: var(--radius__base);
+    padding: 20px;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      span {
+        display: block;
+      }
+    }
+
+    li {
+      mat-icon {
+        flex-shrink: 0;
+      }
+
+      p {
+        margin-bottom: 4px;
+
+        strong {
+          font-weight: 500;
+        }
+      }
+
+      h4 {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        gap: 6px;
+        margin-bottom: 8px;
+      }
+
+      mat-icon {
+        &.true {
+          color: var(--color__green) !important;
+        }
+
+        &.false {
+          color: var(--color__red) !important;
+        }
+      }
+    }
+  }
+}

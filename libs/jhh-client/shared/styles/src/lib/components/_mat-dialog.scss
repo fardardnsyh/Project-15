@@ -1,0 +1,83 @@
+.cdk-overlay-pane {
+  max-width: 90vw !important;
+}
+
+.mat-mdc-dialog-container {
+  width: 90vw !important;
+  max-width: 700px !important;
+
+  .mdc-dialog__surface {
+    background-color: var(--color__bg--darker) !important;
+  }
+
+  .mdc-dialog__title {
+    padding-top: 12px;
+    padding-bottom: 0;
+  }
+
+  .mdc-dialog__content,
+  .mdc-dialog__title {
+    line-height: 1.275 !important;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mdc-dialog__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    ul,
+    .mat-divider,
+    form {
+      width: 100%;
+    }
+
+    li {
+      line-height: 18px;
+    }
+  }
+
+  .mat-mdc-dialog-actions {
+    justify-content: center;
+  }
+
+  .alert {
+    padding: 20px;
+    border-radius: var(--radius__base);
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+
+    mat-icon {
+      flex-shrink: 0;
+    }
+
+    p {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0;
+      color: var(--color__warn);
+    }
+
+    &::before {
+      content: '';
+      pointer-events: none;
+      background-color: var(--color__warn);
+      border-radius: var(--radius__base);
+      opacity: 0.15;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}

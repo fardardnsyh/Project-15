@@ -1,0 +1,30 @@
+{
+  "name": "jhh-client-dashboard-practice-util-unique-answer-validator",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jhh-client/dashboard/practice/util-unique-answer-validator/src",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "libs/jhh-client/dashboard/practice/util-unique-answer-validator/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": [
+    "platform:client",
+    "scope:client-dashboard",
+    "scope:client-dashboard-practice",
+    "type:util"
+  ]
+}

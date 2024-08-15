@@ -1,0 +1,189 @@
+{
+  "root": true,
+  //  "ignorePatterns": [
+  //    "**/*"
+  //  ],
+  "plugins": [
+    "@nx"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "warn",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "type:app",
+                "onlyDependOnLibsWithTags": [
+                  "type:shared",
+                  "platform:client",
+                  "type:client-shared",
+                  "scope:client-auth"
+                ]
+              },
+              {
+                "sourceTag": "platform:client",
+                "onlyDependOnLibsWithTags": [
+                  "type:client-shared",
+                  "type:shared",
+                  "platform:client"
+                ]
+              },
+              {
+                "sourceTag": "platform:server",
+                "onlyDependOnLibsWithTags": [
+                  "type:shared",
+                  "type:server-shared",
+                  "scope:server-db",
+                  "platform:server"
+                ]
+              },
+              {
+                "sourceTag": "type:shared",
+                "onlyDependOnLibsWithTags": [
+                  "type:shared",
+                  "platform:client",
+                  "platform:server"
+                ]
+              },
+              {
+                "sourceTag": "scope:client-auth",
+                "onlyDependOnLibsWithTags": [
+                  "platform:client",
+                  "type:shared"
+                ]
+              },
+              {
+                "sourceTag": "scope:client-dashboard",
+                "onlyDependOnLibsWithTags": [
+                  "platform:client",
+                  "type:shared",
+                  "type:client-shared"
+                ]
+              },
+              {
+                "sourceTag": "scope:main-server-app",
+                "onlyDependOnLibsWithTags": [
+                  "type:shared",
+                  "type:server-shared",
+                  "scope:server-db",
+                  "scope:server-auth-middleware",
+                  "scope:api-router",
+                  "scope:user-router",
+                  "platform:server"
+                ]
+              },
+              {
+                "sourceTag": "type:main-server",
+                "onlyDependOnLibsWithTags": [
+                  "scope:main-server-app"
+                ]
+              },
+              {
+                "sourceTag": "scope:api-router",
+                "onlyDependOnLibsWithTags": [
+                  "scope:dashboard-controller",
+                  "platform:server",
+                  "type:shared"
+                ]
+              },
+              {
+                "sourceTag": "scope:dashboard-controller",
+                "onlyDependOnLibsWithTags": [
+                  "platform:server",
+                  "type:domain"
+                ]
+              },
+              {
+                "sourceTag": "scope:user-router",
+                "onlyDependOnLibsWithTags": [
+                  "scope:user-controller",
+                  "platform:server",
+                  "type:shared"
+                ]
+              },
+              {
+                "sourceTag": "scope:user-controller",
+                "onlyDependOnLibsWithTags": [
+                  "platform:server",
+                  "type:shared"
+                ]
+              },
+              {
+                "sourceTag": "scope:server-auth-middleware",
+                "onlyDependOnLibsWithTags": [
+                  "platform:server",
+                  "type:shared"
+                ]
+              },
+              {
+                "sourceTag": "type:domain",
+                "onlyDependOnLibsWithTags": [
+                  "type:domain"
+                ]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": [
+                  "type:domain",
+                  "type:client-shared",
+                  "scope:client-dashboard"
+                ]
+              },
+              {
+                "sourceTag": "type:util",
+                "onlyDependOnLibsWithTags": [
+                  "type:util",
+                  "type:domain"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@nx/typescript"
+      ],
+      "rules": {
+        "@typescript-eslint/no-inferrable-types": "off"
+      }
+    },
+    {
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "extends": [
+        "plugin:@nx/javascript"
+      ],
+      "rules": {}
+    },
+    {
+      "files": [
+        "*.spec.ts",
+        "*.spec.tsx",
+        "*.spec.js",
+        "*.spec.jsx"
+      ],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
+    }
+  ]
+}

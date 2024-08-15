@@ -1,0 +1,15 @@
+<ng-container *ngIf="homeData$ | async as data">
+  <div [ngClass]="['grid', breakpoint$ | async]">
+    <div class="column">
+      <jhh-home-offers [offers]="data.offers"></jhh-home-offers>
+    </div>
+    <div class="column">
+      <jhh-home-schedule-events [events]="data.scheduleEvents"></jhh-home-schedule-events>
+      <jhh-home-board-columns [columns]="data.boardColumns"></jhh-home-board-columns>
+    </div>
+    <div class="column">
+      <jhh-home-practice [quizzes]="data.quizzes"></jhh-home-practice>
+      <jhh-home-notes [groups]="data.notesGroups"></jhh-home-notes>
+    </div>
+  </div>
+</ng-container>

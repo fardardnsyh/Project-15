@@ -1,0 +1,13 @@
+.brand {
+  a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__name {
+    font-weight: 500;
+    color: var(--color__text);
+    font-size: 1.1rem;
+  }
+}

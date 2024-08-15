@@ -1,0 +1,58 @@
+<ul [ngClass]="breakpoint$ | async">
+  <li *ngFor="let quiz of extendedQuizzes; let i = index; trackBy: trackByFn">
+    <a
+      [routerLink]="'./' + quiz.slug"
+      [ngClass]="i % 2 === 0 ? 'cornerDecoration--rightLeft' : 'cornerDecoration--leftRight'"
+      class="quizCard cornerDecoration"
+    >
+      <span
+        *ngIf="quiz.passRate! / 1 == quiz.passRate"
+        [ngClass]="['resultsPercentage', quiz.percentageClass]"
+      >
+        {{quiz.passRate.toFixed()}}%
+      </span>
+      <span
+        *ngIf="quiz.items.length"
+        class="circleCounter"
+      >
+        {{quiz.items.length <= 99 ? quiz.items.length : '99+'}}
+      </span>
+
+      <figure [ngClass]="!quiz.imageUrl ? 'emptyFigure' : ''">
+        <img *ngIf="quiz.imageUrl" [src]="quiz.imageUrl" [alt]="quiz.name">
+      </figure>
+
+      <header>
+        <div class="row">
+          <h2>
+            {{quiz.name}}
+          </h2>
+          <ng-container>
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="Quiz actions"
+              (click)="$event.preventDefault(); $event.stopPropagation();"
+            >
+              <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openEditQuizDialog(quiz)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="openRemoveQuizDialog(quiz)">
+                <mat-icon>delete_forever</mat-icon>
+                <span>Remove</span>
+              </button>
+            </mat-menu>
+          </ng-container>
+        </div>
+      </header>
+
+      <p *ngIf="quiz.description">
+        {{ quiz.description.length > 115 ? (quiz.description | slice:0:115) + '...' : quiz.description }}
+      </p>
+    </a>
+  </li>
+</ul>

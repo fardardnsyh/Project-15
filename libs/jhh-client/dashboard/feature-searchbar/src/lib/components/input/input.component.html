@@ -1,0 +1,4 @@
+<mat-form-field appearance="fill" class="field">
+  <mat-label>{{ placeholder }}</mat-label>
+  <input matInput (input)="onInputChange($any($event.target).value)">
+</mat-form-field>

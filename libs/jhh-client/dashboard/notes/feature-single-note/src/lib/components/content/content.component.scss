@@ -1,0 +1,87 @@
+::ng-deep {
+  .content {
+    background-color: var(--color__bg--darker);
+    padding: 20px;
+    border-radius: var(--radius__base);
+
+    img {
+      max-width: 100%;
+    }
+
+    ul,
+    ol {
+      padding-left: 20px;
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
+    .ql-size-small {
+      font-size: 1.2rem;
+    }
+
+    .ql-size-large {
+      font-size: 2rem;
+    }
+
+    .ql-size-huge {
+      font-size: 2.4rem;
+    }
+
+    .ql-align-center {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .ql-align-right {
+      text-align: right;
+      margin-left: auto;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+    }
+
+    .ql-font-monospace {
+      font-family: monospace;
+    }
+
+    .ql-font-serif {
+      font-family: sans-serif;
+    }
+
+    pre {
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+      color: var(--color__code);
+      background-color: var(--color__pre);
+      white-space: pre-wrap;
+      padding: 8px;
+      border-radius: var(--radius__small);
+    }
+
+    iframe.ql-video {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      display: block;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+
+    @media (max-width: 599px) {
+      p {
+        hyphens: auto;
+      }
+    }
+  }
+}

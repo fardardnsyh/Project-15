@@ -1,0 +1,35 @@
+.buttonContainer {
+  mat-icon {
+    color: white !important;
+  }
+}
+
+.imagePreview {
+  max-width: 200px;
+  max-height: 80px;
+  object-fit: contain;
+  margin-right: auto;
+  margin-bottom: 16px;
+}
+
+mat-accordion {
+  width: 100%;
+
+  .answer {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+
+    mat-form-field {
+      margin-bottom: 0;
+    }
+
+    button {
+      margin-top: 4px;
+    }
+
+    mat-checkbox {
+      margin-top: 10px;
+    }
+  }
+}

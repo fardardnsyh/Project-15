@@ -1,0 +1,36 @@
+<ng-container *ngIf="questions.length; else emptyList">
+  <div class="top">
+    <h3>Questions ({{questions.length}})</h3>
+    <button mat-flat-button color="primary" (click)="toggleAccordion()">
+      <mat-icon>{{ isAccordionOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+      <span>{{ isAccordionOpen ? 'Hide answers' : 'Show answers' }}</span>
+    </button>
+  </div>
+  <mat-accordion multi>
+    <mat-expansion-panel *ngFor="let item of questions; index as i">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{i + 1}}.
+          {{item.question}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ul>
+        <ng-container *ngFor="let answer of item.answers; let isLast=last">
+          <li>
+            <mat-icon
+              [ngClass]="answer.isCorrect ? 'true' : 'false'"
+            >
+              {{answer.isCorrect ? 'check' : 'clear'}}
+            </mat-icon>
+            <span>{{answer.text}}</span>
+          </li>
+          <mat-divider *ngIf="!isLast"></mat-divider>
+        </ng-container>
+      </ul>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
+
+<ng-template #emptyList>
+  <p>No questions found.</p>
+</ng-template>

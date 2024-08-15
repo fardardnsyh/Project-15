@@ -1,0 +1,17 @@
+<header class="noteHeader">
+  <div class="noteHeader__box">
+    <div>
+      <h2>{{note.name}}</h2>
+      <div class="noteHeader__dates">
+        <div class="noteHeader__date">
+          <mat-icon>event</mat-icon>
+          <span>{{note.createdAt | date: 'dd.MM.yyyy HH:mm'}}</span>
+        </div>
+        <div class="noteHeader__date" *ngIf="note.updatedAt !== note.createdAt">
+          <mat-icon>history</mat-icon>
+          <span>{{note.updatedAt | date: 'dd.MM.yyyy HH:mm'}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

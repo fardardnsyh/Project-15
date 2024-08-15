@@ -1,0 +1,13 @@
+<div class="statusUpdates cornerDecoration cornerDecoration--leftRight">
+  <h3>Status updates</h3>
+  <ul *ngIf="updates.length; else noUpdates">
+    <li *ngFor="let update of extendedUpdates">
+      <mat-icon>{{update.icon}}</mat-icon>
+      <span>{{update.date | date: 'dd.MM.yyyy'}}</span>
+      <h4>{{update.status}}</h4>
+    </li>
+  </ul>
+  <ng-template #noUpdates>
+    <p>Here you will see the changes in the status of the offer.</p>
+  </ng-template>
+</div>

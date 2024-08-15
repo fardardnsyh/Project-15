@@ -1,0 +1,56 @@
+<div class="results">
+  <h3>Results</h3>
+  <ul>
+    <li *ngFor="let result of extendedResults | slice:0:displayedItems; let last = last">
+      <span>- </span>
+      <span>{{result.createdAt | date: 'dd.MM.yyyy'}}</span>
+      <span class="resultsScore">{{result.totalScore}}/{{result.items.length}}</span>
+      <span [ngClass]="['resultsPercentage', result.percentageClass]">{{result.percentage}}%</span>
+      <button mat-icon-button matTooltip="Show answers" (click)="openDialog(result)">
+        <mat-icon>assessment</mat-icon>
+      </button>
+      <mat-divider *ngIf="!last"></mat-divider>
+    </li>
+  </ul>
+  <button
+    *ngIf="defaultDisplayedItems < results.length"
+    mat-flat-button
+    color="primary"
+    (click)="toggleList()"
+  >
+    {{displayedItems === defaultDisplayedItems ? 'Show more' : 'Hide'}}
+  </button>
+</div>
+
+<ng-template #dialogContent>
+  <ng-container *ngIf="openedResults$.getValue() as openedResults">
+    <h2 mat-dialog-title>Answers</h2>
+    <mat-dialog-content>
+      <h3>
+        Quiz results
+        <span class="resultsScore">{{openedResults.totalScore}}/{{openedResults.items.length}}</span>
+        <span [ngClass]="['resultsPercentage', openedResults.percentageClass]">{{openedResults.percentage}}%</span>
+      </h3>
+      <ul>
+        <li *ngFor="let result of openedResults.items; let i = index">
+          <h4>
+            <mat-icon
+              [ngClass]="result.isCorrect ? 'true' : 'false'"
+            >
+              {{result.isCorrect ? 'check' : 'clear'}}
+            </mat-icon>
+            <span>
+              {{i + 1}}. {{result.question}}
+            </span>
+          </h4>
+          <p><strong>Your answer:</strong> {{result.userAnswers.join(', ')}}</p>
+          <p><strong>Correct answer:</strong> {{result.correctAnswers.join(', ')}}</p>
+          <mat-divider></mat-divider>
+        </li>
+      </ul>
+      <mat-dialog-actions>
+        <button mat-stroked-button mat-dialog-close>Close</button>
+      </mat-dialog-actions>
+    </mat-dialog-content>
+  </ng-container>
+</ng-template>

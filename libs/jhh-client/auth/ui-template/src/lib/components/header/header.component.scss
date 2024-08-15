@@ -1,0 +1,26 @@
+header {
+  padding: 30px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color__primary);
+  border-top-left-radius: var(--radius__base);
+  border-top-right-radius: var(--radius__base);
+
+  * {
+    color: white !important;
+  }
+
+  .mat-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 4.2rem;
+  }
+
+  h1 {
+    text-align: center;
+    font-weight: 500;
+    margin-left: 6px;
+    margin-bottom: 0;
+  }
+}

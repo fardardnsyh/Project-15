@@ -1,0 +1,31 @@
+<ng-container>
+  <jhh-edit-practice-quiz></jhh-edit-practice-quiz>
+  <jhh-remove-practice-quiz></jhh-remove-practice-quiz>
+  <div class="controls">
+    <jhh-practice-add-quiz></jhh-practice-add-quiz>
+    <ng-container *ngIf="(sortedQuizzes$ | async)?.length">
+      <jhh-searchbar [searchFunction]="searchQuizzes" [placeholder]="'Enter quiz name...'"></jhh-searchbar>
+      <jhh-sorting
+        [sortOptionsValues]="sortOptionsValues"
+        [defaultSort]="defaultSort"
+        [currentSort$]="currentSort$"
+        (updateCurrentSort)="handleSortChange($event)"
+      >
+      </jhh-sorting>
+    </ng-container>
+  </div>
+  <ng-container *ngIf="(sortedQuizzes$ | async)?.length; else emptyList">
+    <jhh-practice-quizzes-list [quizzes]="(sortedQuizzes$ | async)!"></jhh-practice-quizzes-list>
+    <jhh-pagination
+      [totalPages]="totalPages"
+      [defaultPage]="defaultPage"
+      [currentPage$]="currentPage$"
+      (updateCurrentPage)="handlePageChange($event)"
+    >
+    </jhh-pagination>
+  </ng-container>
+</ng-container>
+
+<ng-template #emptyList>
+  <p>No quizzes found.</p>
+</ng-template>

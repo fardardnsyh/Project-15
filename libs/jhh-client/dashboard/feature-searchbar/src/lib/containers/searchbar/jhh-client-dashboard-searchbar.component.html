@@ -1,0 +1,11 @@
+<div class="searchbar">
+  <jhh-searchbar-input [placeholder]="placeholder" (searchChange)="onSearch($event)"></jhh-searchbar-input>
+  <ng-container *ngIf="(results$ | async) as results">
+    <jhh-searchbar-results
+      [results]="results"
+      [loading]="loading"
+      [searchStarted]="searchStarted"
+    >
+    </jhh-searchbar-results>
+  </ng-container>
+</div>

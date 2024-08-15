@@ -1,0 +1,3 @@
+<ng-container *ngIf="noteToRemove$ | async as note">
+  <jhh-remove-note-dialog [noteToRemove]="note"></jhh-remove-note-dialog>
+</ng-container>

@@ -1,0 +1,6 @@
+<mat-toolbar class="toolbar">
+  <jhh-sidebar-burger (toggleSidebar)="toggleSidebar()"></jhh-sidebar-burger>
+  <jhh-toolbar-brand *ngIf="isBreakpointMobile$ | async"></jhh-toolbar-brand>
+  <jhh-theme-switcher [isBreakpointMobile]="isBreakpointMobile$ | async"></jhh-theme-switcher>
+  <jhh-user-menu></jhh-user-menu>
+</mat-toolbar>

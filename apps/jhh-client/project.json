@@ -1,0 +1,123 @@
+{
+  "name": "jhh-client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "jhh",
+  "sourceRoot": "apps/jhh-client/src",
+  "tags": [
+    "type:app",
+    "platform:client"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/jhh-client",
+        "index": "apps/jhh-client/src/index.html",
+        "main": "apps/jhh-client/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/jhh-client/tsconfig.app.json",
+        "assets": [
+          "apps/jhh-client/src/favicon.ico",
+          "apps/jhh-client/src/assets",
+          "apps/jhh-client/src/_redirects"
+        ],
+        "styles": [
+          "libs/jhh-client/shared/styles/src/index.scss",
+          "node_modules/angular-calendar/css/angular-calendar.css",
+          "node_modules/flatpickr/dist/flatpickr.css"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "libs/jhh-client/shared/config/src/lib/environment/environment.ts",
+              "with": "libs/jhh-client/shared/config/src/lib/environment/environment.prod.ts"
+            }
+          ],
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "8mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "200kb",
+              "maximumError": "400kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "jhh-client:build:production"
+        },
+        "development": {
+          "browserTarget": "jhh-client:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "jhh-client:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/jhh-client/**/*.ts",
+          "apps/jhh-client/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/jhh-client/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "jhh-client:build"
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+<ng-container *ngIf="user$ | async as user">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>person</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <div class="username">
+      <mat-icon>person</mat-icon>
+      <span>
+        {{user.username}}
+      </span>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="handleLogout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+    <button mat-menu-item class="removeAccountMenuItem" (click)="openRemoveAccountDialog()">
+      <mat-icon>person_remove</mat-icon>
+      <span>Remove account</span>
+    </button>
+  </mat-menu>
+
+  <ng-template #removeAccountDialogContent>
+    <h2 mat-dialog-title>Are you sure you want to remove account?</h2>
+    <mat-dialog-content>
+      <div class="alert">
+        <mat-icon>error</mat-icon>
+        <p>
+          All your data will be gone.
+          <br>
+          <strong>
+            Type 'remove account' to enable button.
+          </strong>
+        </p>
+      </div>
+      <mat-form-field appearance="fill">
+        <input type="hidden" #inProgress [value]="(removeAccountInProgress$ | async)">
+        <input
+          type="text"
+          matInput
+          [(ngModel)]="removeAccountConfirmationText"
+          placeholder="Type 'remove account' here to enable button"
+          (keyup.enter)="trySubmitRemoveAccount(inProgress.value)"
+        />
+      </mat-form-field>
+
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="(removeAccountInProgress$ | async) || (removeAccountError$ | async)">
+        <mat-progress-spinner *ngIf="removeAccountInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+        <mat-error *ngIf="removeAccountError$ | async as error">{{ error }}</mat-error>
+      </ng-container>
+
+      <mat-dialog-actions>
+        <button
+          mat-stroked-button
+          mat-dialog-close
+        >
+          Cancel
+        </button>
+        <button
+          mat-flat-button
+          color="warn"
+          (click)="handleRemoveAccount()"
+          [disabled]="(removeAccountInProgress$ | async) || !isRemoveConfirmationValid()"
+        >
+          Remove
+        </button>
+      </mat-dialog-actions>
+    </mat-dialog-content>
+  </ng-template>
+</ng-container>

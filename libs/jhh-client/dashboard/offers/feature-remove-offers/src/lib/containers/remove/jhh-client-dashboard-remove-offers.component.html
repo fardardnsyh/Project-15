@@ -1,0 +1,5 @@
+<ng-container *ngIf="offersToRemove$ | async as offers">
+  <ng-container *ngIf="offers.length">
+    <jhh-remove-offers-dialog [offers]="offers"></jhh-remove-offers-dialog>
+  </ng-container>
+</ng-container>

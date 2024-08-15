@@ -1,0 +1,11 @@
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .selectToday {
+    mat-icon {
+      color: white !important;
+    }
+  }
+}

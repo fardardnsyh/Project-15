@@ -1,0 +1,13 @@
+<jhh-offers-add></jhh-offers-add>
+
+<ng-container *ngIf="offers$ | async as offers">
+  <ng-container *ngIf="offers.length; else emptyList">
+    <jhh-edit-offer></jhh-edit-offer>
+    <jhh-remove-offers></jhh-remove-offers>
+    <jhh-offers-table [offers]="offers"></jhh-offers-table>
+  </ng-container>
+</ng-container>
+
+<ng-template #emptyList>
+  <p style="margin-top: 121px">No offers found.</p>
+</ng-template>

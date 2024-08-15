@@ -1,0 +1,15 @@
+ul {
+  li {
+    .dates {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: var(--color__icon);
+    }
+  }
+}

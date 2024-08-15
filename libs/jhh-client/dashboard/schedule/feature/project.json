@@ -1,0 +1,31 @@
+{
+  "name": "jhh-client-dashboard-schedule-feature",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jhh-client/dashboard/schedule/feature/src",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "libs/jhh-client/dashboard/schedule/feature/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": [
+    "platform:client",
+    "scope:client-dashboard",
+    "scope:client-dashboard-schedule",
+    "type:client-feature",
+    "scope:client-dashboard-schedule-feature"
+  ]
+}

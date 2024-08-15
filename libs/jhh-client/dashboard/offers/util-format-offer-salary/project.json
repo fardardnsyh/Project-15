@@ -1,0 +1,32 @@
+{
+  "name": "jhh-client-dashboard-offers-util-format-offer-salary",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jhh-client/dashboard/offers/util-format-offer-salary/src",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "libs/jhh-client/dashboard/offers/util-format-offer-salary/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": [
+    "platform:client",
+    "type:util",
+    "scope:client-dashboard",
+    "scope:client-dashboard-offers",
+    "type:client-util",
+    "scope:client-dashboard-offers-util"
+  ]
+}

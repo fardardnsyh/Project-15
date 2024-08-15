@@ -1,0 +1,41 @@
+.relatedNotes {
+  margin: 80px 0;
+
+  h2 {
+    margin-bottom: 50px;
+    text-align: center;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 2px;
+      background-color: var(--color__primary);
+    }
+  }
+
+  &__arrow {
+    mat-icon {
+      color: white !important;
+    }
+  }
+
+  &__slider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .swiper {
+      flex-grow: 1;
+
+      .swiper-slide {
+        height: auto;
+        cursor: pointer;
+      }
+    }
+  }
+}

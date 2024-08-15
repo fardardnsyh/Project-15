@@ -1,0 +1,95 @@
+.sidenav {
+  $self: &;
+  $sidenavSize: 80px;
+  $sidenavSize--expanded: 240px;
+
+  &.mat-drawer-container {
+    color: var(--color__text);
+  }
+
+  mat-sidenav {
+    background-color: var(--color__primary);
+    width: 100%;
+    position: fixed;
+    padding: 10px;
+
+    ::ng-deep {
+      mat-icon {
+        transform: scale(1.25);
+        color: white !important;
+      }
+    }
+
+    * {
+      color: white;
+    }
+  }
+
+  mat-sidenav-content {
+    min-height: 100vh;
+    margin-left: 0 !important;
+    background-color: var(--color__bg--darker);
+  }
+
+  ::ng-deep {
+    .sidenav__item {
+      display: block;
+      border: 1px solid transparent;
+      border-radius: var(--radius__base);
+      color: white !important;
+      transition: border-color 0.2s;
+
+      span {
+        color: white;
+      }
+
+      &--active {
+        border-color: white;
+      }
+
+      ::ng-deep {
+        .mdc-list-item__content {
+          .mat-mdc-list-item-unscoped-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  &--notMobile {
+    mat-sidenav {
+      width: $sidenavSize;
+      padding: 20px 10px 60px 10px;
+    }
+
+    mat-sidenav-content {
+      margin-left: $sidenavSize !important;
+    }
+  }
+
+  &--expanded {
+    mat-sidenav {
+      width: $sidenavSize--expanded;
+    }
+
+    mat-sidenav-content {
+      margin-left: $sidenavSize--expanded !important;
+    }
+
+    ::ng-deep {
+      #{ $self }__item {
+        ::ng-deep {
+          .mdc-list-item__content {
+            .mat-mdc-list-item-unscoped-content {
+              justify-content: flex-start;
+            }
+          }
+        }
+      }
+    }
+  }
+}

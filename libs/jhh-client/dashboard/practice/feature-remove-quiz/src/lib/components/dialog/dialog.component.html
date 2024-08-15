@@ -1,0 +1,51 @@
+<ng-container *ngIf="quiz">
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Are you sure you want to remove a quiz?</h2>
+    <mat-dialog-content>
+      <img *ngIf="quiz.imageUrl" [src]="quiz.imageUrl" [alt]="quiz.name">
+      <ul>
+        <li>
+          <span>
+            <strong>Name: </strong>
+          </span>
+          <span>{{quiz.name}}</span>
+        </li>
+        <li>
+          <span>
+            <strong>Amount of questions: </strong>
+          </span>
+          <span>{{quiz.items.length}}</span>
+        </li>
+        <li *ngIf="quiz.description">
+          <span>
+            <strong>Description: </strong>
+          </span>
+          <span>{{quiz.description}}</span>
+        </li>
+      </ul>
+
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="(removeQuizInProgress$ | async) || (removeQuizError$ | async)">
+        <mat-progress-spinner *ngIf="removeQuizInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+        <mat-error *ngIf="removeQuizError$ | async as error">{{ error }}</mat-error>
+      </ng-container>
+
+      <mat-dialog-actions>
+        <button
+          mat-stroked-button
+          mat-dialog-close
+        >
+          Cancel
+        </button>
+        <button
+          mat-flat-button
+          color="warn"
+          (click)="handleRemove()"
+          [disabled]="(removeQuizInProgress$ | async)"
+        >
+          Remove
+        </button>
+      </mat-dialog-actions>
+    </mat-dialog-content>
+  </ng-template>
+</ng-container>

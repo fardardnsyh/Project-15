@@ -1,0 +1,215 @@
+<ng-container>
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>
+      <span [style.background-color]="event.color" class="circle"></span>
+      <span>
+        {{ event.title }}
+      </span>
+    </h2>
+    <mat-dialog-content>
+      <mat-tab-group>
+
+        <mat-tab class="tab">
+          <ng-template mat-tab-label>
+            <mat-icon class="button-icon">info</mat-icon>
+            Details
+          </ng-template>
+          <ng-container *ngTemplateOutlet="detailsTabContent"></ng-container>
+        </mat-tab>
+
+        <mat-tab class="tab">
+          <ng-template mat-tab-label>
+            <mat-icon class="button-icon">edit</mat-icon>
+            Edit
+          </ng-template>
+          <ng-container *ngTemplateOutlet="editTabContent"></ng-container>
+        </mat-tab>
+
+        <mat-tab class="tab">
+          <ng-template mat-tab-label>
+            <mat-icon class="button-icon">delete_forever</mat-icon>
+            Remove
+          </ng-template>
+          <ng-container *ngTemplateOutlet="removeTabContent"></ng-container>
+        </mat-tab>
+
+      </mat-tab-group>
+    </mat-dialog-content>
+  </ng-template>
+</ng-container>
+
+<ng-template #detailsTabContent>
+  <div class="tab__content">
+    <div class="dates">
+      <mat-icon>event</mat-icon>
+      <span>{{ event.start | date: 'dd.MM.yy HH:mm' }}</span>
+      <span>&nbsp;-&nbsp;</span>
+      <span>{{ event.end | date: 'dd.MM.yy HH:mm' }}</span>
+    </div>
+    <div class="description" *ngIf="event.description">
+      <p>{{ event.description }}</p>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #editTabContent>
+  <div class="tab__content">
+    <form [formGroup]="formGroup" (ngSubmit)="onEditSubmit()">
+      <div class="formDates">
+        <div class="date">
+          <mat-label>Start Date</mat-label>
+          <input
+            type="text"
+            mwlFlatpickr
+            [formControlName]="formField.Start"
+            [altInput]="true"
+            [convertModelValue]="true"
+            [enableTime]="true"
+            dateFormat="Y-m-dTH:i"
+            altFormat="F j, Y H:i"
+            placeholder="Not set"
+            required
+          />
+          <mat-error *ngIf="formGroup.get(formField.Start)?.hasError(formErrorKey.Required)">
+            Start date is required
+          </mat-error>
+        </div>
+
+        <div class="date">
+          <mat-label>End Date</mat-label>
+          <input
+            type="text"
+            mwlFlatpickr
+            [formControlName]="formField.End"
+            [altInput]="true"
+            [convertModelValue]="true"
+            [enableTime]="true"
+            dateFormat="Y-m-dTH:i"
+            altFormat="F j, Y H:i"
+            placeholder="Not set"
+            required
+          />
+          <mat-error *ngIf="formGroup.get(formField.End)?.hasError(formErrorKey.Required)">
+            End date is required
+          </mat-error>
+          <mat-error *ngIf="formGroup.get(formField.End)?.hasError(formErrorKey.InvalidDateRange)">
+            The end date cannot be earlier than the start date.
+          </mat-error>
+        </div>
+      </div>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput [formControlName]="formField.Title" whitespaceSanitizer required/>
+        <mat-error *ngIf="formGroup.get(formField.Title)?.hasError(formErrorKey.Required)">
+          Title is required
+        </mat-error>
+        <mat-error *ngIf="formGroup.get(formField.Title)?.hasError(formErrorKey.MinLength)">
+          Minimum length of title is {{ fieldLength.MinTitleLength }} characters
+        </mat-error>
+        <mat-error *ngIf="formGroup.get(formField.Title)?.hasError(formErrorKey.MaxLength)">
+          Maximum length of title is {{ fieldLength.MaxTitleLength }} characters
+        </mat-error>
+      </mat-form-field>
+
+      <div class="formColorsRow">
+        <mat-form-field class="fieldColor" appearance="fill">
+          <mat-label>Color</mat-label>
+          <input type="color" matInput [formControlName]="formField.Color" required/>
+          <mat-error *ngIf="formGroup.get(formField.Color)?.hasError(formErrorKey.InvalidColor)">
+            Invalid color
+          </mat-error>
+        </mat-form-field>
+
+        <div class="defaultColors">
+          <button
+            type="button"
+            *ngFor="let color of defaultColorValues"
+            [style.background]="color"
+            (click)="selectDefaultColor($any(color))">
+          </button>
+        </div>
+      </div>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          [formControlName]="formField.Description"
+          [maxlength]="fieldLength.MaxDescriptionLength"
+        >
+        </textarea>
+        <mat-error *ngIf="formGroup.get(formField.Description)?.hasError(formErrorKey.MaxLength)">
+          Maximum length of description is {{ fieldLength.MaxDescriptionLength }} characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="(editEventInProgress$ | async) || (editEventError$ | async)">
+        <mat-progress-spinner
+          *ngIf="editEventInProgress$ | async"
+          mode="indeterminate"
+        >
+        </mat-progress-spinner>
+        <mat-error *ngIf="editEventError$ | async as error">{{ error }}</mat-error>
+      </ng-container>
+
+      <mat-dialog-actions>
+        <button mat-stroked-button mat-dialog-close>Cancel</button>
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="formGroup.invalid || (editEventInProgress$ | async)"
+        >
+          Save
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #removeTabContent>
+  <div class="tab__content">
+
+    <div class="alert">
+      <mat-icon>error</mat-icon>
+      <p>
+        <span>Are you sure you want to remove a event?</span>
+        <br>
+        <strong>Type 'remove' to enable button.</strong>
+      </p>
+    </div>
+
+    <div class="remove">
+      <mat-form-field appearance="fill">
+        <input type="hidden" #inProgress [value]="(removeEventInProgress$ | async)">
+        <input
+          type="text"
+          matInput
+          [(ngModel)]="removeConfirmationText"
+          placeholder="Type 'remove' here to enable button"
+          (keyup.enter)="trySubmitRemove(inProgress.value)"
+        />
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="warn"
+        (click)="handleRemove()"
+        [disabled]="(removeEventInProgress$ | async) || !isRemoveConfirmationValid()"
+      >
+        Remove
+      </button>
+    </div>
+
+    <div class="status" *ngIf="(removeEventInProgress$ | async) || (removeEventError$ | async)">
+      <mat-progress-spinner
+        *ngIf="removeEventInProgress$ | async"
+        mode="indeterminate"
+      >
+      </mat-progress-spinner>
+      <mat-error *ngIf="removeEventError$ | async as error">{{ error }}</mat-error>
+    </div>
+
+  </div>
+</ng-template>

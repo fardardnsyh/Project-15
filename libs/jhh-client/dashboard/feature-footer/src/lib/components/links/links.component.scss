@@ -1,0 +1,29 @@
+ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+
+  li {
+    a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color__icon);
+      font-size: 1.2rem;
+
+      span,
+      mat-icon {
+        transition: color 0.3s;
+      }
+
+      &:hover {
+        span,
+        mat-icon {
+          color: var(--color__primary) !important;
+        }
+      }
+    }
+  }
+}

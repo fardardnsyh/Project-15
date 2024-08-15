@@ -1,0 +1,56 @@
+<ng-container *ngIf="noteToRemove as note">
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Are you sure you want to remove a note?</h2>
+    <mat-dialog-content>
+      <ul>
+        <li>
+          <span>
+            <strong>
+              Name:
+            </strong>
+          </span>
+          <span>{{note.name}}</span>
+        </li>
+        <li>
+          <span>
+            <strong>
+              Created at:
+            </strong>
+          </span>
+          <span>{{note.createdAt | date: 'dd.MM.yyyy HH:mm'}}</span>
+        </li>
+        <li>
+          <span>
+            <strong>
+              Updated at:
+            </strong>
+          </span>
+          <span>{{note.updatedAt | date: 'dd.MM.yyyy HH:mm'}}</span>
+        </li>
+      </ul>
+
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="(removeNoteInProgress$ | async) || (removeNoteError$ | async)">
+        <mat-progress-spinner *ngIf="removeNoteInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+        <mat-error *ngIf="removeNoteError$ | async as error">{{ error }}</mat-error>
+      </ng-container>
+
+      <mat-dialog-actions>
+        <button
+          mat-stroked-button
+          mat-dialog-close
+        >
+          Cancel
+        </button>
+        <button
+          mat-flat-button
+          color="warn"
+          [disabled]="(removeNoteInProgress$ | async)"
+          (click)="handleRemove()"
+        >
+          Remove
+        </button>
+      </mat-dialog-actions>
+    </mat-dialog-content>
+  </ng-template>
+</ng-container>

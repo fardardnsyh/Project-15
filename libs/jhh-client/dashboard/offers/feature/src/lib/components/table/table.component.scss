@@ -1,0 +1,109 @@
+.topContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px 25px;
+  margin-bottom: 35px;
+
+  button {
+    flex-shrink: 0;
+    margin-left: 81px;
+
+    span {
+      position: relative;
+      top: 1px;
+    }
+
+    mat-icon {
+      color: white !important;
+    }
+  }
+
+  mat-form-field {
+    max-width: 280px;
+    margin-bottom: 0;
+  }
+}
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+
+  .clickableRow {
+    cursor: pointer;
+    transition: all 0.3s;
+
+    mat-icon {
+      transition: color 0.3s;
+    }
+
+    &:hover {
+      background-color: var(--color__primary);
+
+      * {
+        color: white !important;
+      }
+
+      mat-icon {
+        color: white !important;
+      }
+
+      ::ng-deep {
+        .mdc-checkbox__background {
+          border-color: white !important;
+        }
+      }
+
+      jhh-offers-menu {
+        ::ng-deep {
+          mat-icon {
+            color: white !important;
+          }
+        }
+      }
+    }
+  }
+
+  th {
+    div {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 1.6rem;
+      user-select: none;
+    }
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    mat-icon {
+      $size: 18px;
+      width: $size;
+      height: $size;
+      font-size: $size;
+    }
+  }
+
+  .noFound {
+    color: var(--color__warn);
+    max-width: 480px;
+
+    span {
+      display: inline-block;
+      padding: 16px;
+      word-break: break-all;
+    }
+  }
+}
+
+.paginatorContainer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+
+  mat-paginator {
+    display: inline-block;
+  }
+}

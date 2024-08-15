@@ -1,0 +1,205 @@
+<ng-container *ngIf="quiz">
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Edit quiz</h2>
+    <mat-dialog-content>
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+        <div [ngClass]="['formGrid', breakpoint$ | async]">
+          <mat-form-field appearance="fill">
+            <mat-label>{{slugPrefix}}</mat-label>
+            <input
+              matInput
+              [formControlName]="formField.Slug"
+              placeholder="Enter slug here"
+              whitespaceSanitizer
+              required
+            >
+            <mat-error *ngIf="formGroup.get(formField.Slug)?.hasError(formErrorKey.Required)">
+              Slug is required
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Slug)?.hasError(formErrorKey.MinLength)">
+              Minimum length of slug is {{fieldLength.MinNameLength}} characters
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Slug)?.hasError(formErrorKey.MaxLength)">
+              Maximum length of slug is {{fieldLength.MaxNameLength + fieldLength.MaxNameAndSlugLengthDiff}}
+              characters
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Quiz name</mat-label>
+            <input matInput whitespaceSanitizer required [formControlName]="formField.Name">
+            <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.Required)">
+              Quiz name is required
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.MaxLength)">
+              Maximum length of quiz name is {{fieldLength.MaxNameLength}} characters
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="fullRow">
+            <mat-label>Description</mat-label>
+            <textarea matInput [formControlName]="formField.Description"></textarea>
+            <mat-error *ngIf="formGroup.get(formField.Description)?.hasError(formErrorKey.MaxLength)">
+              Maximum length of description is {{fieldLength.MaxDescriptionLength}} characters
+            </mat-error>
+          </mat-form-field>
+
+          <div class="fullRow">
+            <mat-form-field>
+              <mat-label>Image URL</mat-label>
+              <input matInput [formControlName]="formField.ImageUrl">
+              <mat-error *ngIf="formGroup.get(formField.ImageUrl)?.hasError(formErrorKey.MaxLength)">
+                Maximum length of image URL is {{fieldLength.MaxImageUrlLength}} characters
+              </mat-error>
+              <mat-error *ngIf="formGroup.get(formField.ImageUrl)?.hasError(formErrorKey.InvalidImageUrl)">
+                Please enter a valid image URL (e.g., http://example.com/image.jpg).
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="fullRow">
+            <img
+              *ngIf="formGroup.get(formField.ImageUrl)?.valid && formGroup.get(formField.ImageUrl)?.value"
+              [src]="formGroup.get(formField.ImageUrl)?.value"
+              alt="Image preview"
+              class="imagePreview"
+            />
+          </div>
+
+          <div class="fullRow">
+            <mat-accordion [formArrayName]="formField.Items" multi>
+              <mat-expansion-panel
+                *ngFor="let question of questions.controls; let i=index"
+                [@removeAnimation]
+                [formGroupName]="i">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{ i + 1 }}. {{ question.get(formField.Question)!.value || 'Question' }}
+                  </mat-panel-title>
+                  <button
+                    mat-icon-button
+                    type="button"
+                    style="margin-right: 4px"
+                    (click)="removeQuestion(i)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </mat-expansion-panel-header>
+
+                <mat-form-field>
+                  <mat-label>Question</mat-label>
+                  <input matInput required [formControlName]="formField.Question">
+                  <mat-error *ngIf="question.get(formField.Question)?.hasError(formErrorKey.Required)">
+                    Question is required
+                  </mat-error>
+                  <mat-error *ngIf="question.get(formField.Question)?.hasError(formErrorKey.MinLength)">
+                    Minimum length of question is {{fieldLength.MinQuestionLength}} characters
+                  </mat-error>
+                  <mat-error *ngIf="question.get(formField.Question)?.hasError(formErrorKey.MaxLength)">
+                    Maximum length of question is {{fieldLength.MaxQuestionLength}} characters
+                  </mat-error>
+                </mat-form-field>
+
+                <div [formArrayName]="formField.Answers">
+                  <div
+                    *ngFor="let answer of getAnswers(question).controls; let idx = index"
+                    class="answer"
+                    [@removeAnimation]
+                    [formGroupName]="idx">
+                    <mat-checkbox color="primary" [formControlName]="formField.IsCorrect"></mat-checkbox>
+                    <mat-form-field>
+                      <mat-label>Answer</mat-label>
+                      <input matInput required [formControlName]="formField.AnswerText">
+                      <mat-error *ngIf="answer.get(formField.AnswerText)?.hasError(formErrorKey.Required)">
+                        Answer is required
+                      </mat-error>
+                      <mat-error *ngIf="answer.get(formField.AnswerText)?.hasError(formErrorKey.MinLength)">
+                        Minimum length of answer is {{fieldLength.MinAnswerLength}} characters
+                      </mat-error>
+                      <mat-error *ngIf="answer.get(formField.AnswerText)?.hasError(formErrorKey.MaxLength)">
+                        Maximum length of answer is {{fieldLength.MaxAnswerLength}} characters
+                      </mat-error>
+                    </mat-form-field>
+                    <button mat-icon-button type="button" (click)="removeAnswer(i, idx)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <mat-error
+                  *ngIf="!question.get(formField.Question)?.hasError(formErrorKey.Required) && getAnswers(question).hasError(formErrorKey.InvalidMinArrayLength)">
+                  Minimum amount of answers is {{fieldLength.MinAnswers}}
+                </mat-error>
+
+                <mat-error
+                  *ngIf="!getAnswers(question).hasError(formErrorKey.InvalidMinArrayLength) && getAnswers(question).hasError(formErrorKey.InvalidAnswersDistribution)">
+                  Each question must have at least one correct and one incorrect answer.
+                </mat-error>
+
+                <mat-error
+                  *ngIf="!getAnswers(question).hasError(formErrorKey.InvalidMinArrayLength) && getAnswers(question).hasError(formErrorKey.DuplicatedAnswers)">
+                  Answers must be unique.
+                </mat-error>
+
+                <button
+                  mat-stroked-button
+                  type="button"
+                  style="margin: 12px auto 0 auto; display: block"
+                  (click)="addAnswer(i)"
+                  [disabled]="getAnswers(question).length >= 6">
+                  <mat-icon>add</mat-icon>
+                  <span>
+                Add Answer
+              </span>
+                </button>
+              </mat-expansion-panel>
+            </mat-accordion>
+
+            <mat-error
+              *ngIf="!formGroup.get(formField.Name)?.hasError(formErrorKey.Required) && formGroup.get(formField.Items)?.hasError(formErrorKey.Required)">
+              At least one question is required.
+            </mat-error>
+          </div>
+        </div>
+
+        <button
+          mat-stroked-button
+          type="button"
+          style="margin-top: 12px"
+          (click)="addQuestion()"
+          [disabled]="questions.length >= fieldLength.MaxQuestions">
+          <mat-icon>question_answer</mat-icon>
+          <span>
+            Add Question
+          </span>
+        </button>
+
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="(editQuizInProgress$ | async) || (editQuizError$ | async)">
+          <mat-progress-spinner *ngIf="editQuizInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+          <mat-error *ngIf="editQuizError$ | async as error">{{ error }}</mat-error>
+        </ng-container>
+
+        <mat-dialog-actions>
+          <button mat-stroked-button mat-dialog-close>Cancel</button>
+          <span
+            matTooltip="Your form is not valid. Check your questions and answers"
+            [matTooltipDisabled]="!formGroup.invalid"
+            style="margin-left: 8px;"
+          >
+            <button
+              mat-flat-button
+              color="primary"
+              type="submit"
+              [disabled]="formGroup.invalid || (editQuizInProgress$ | async)"
+            >
+              Save
+            </button>
+          </span>
+        </mat-dialog-actions>
+
+      </form>
+    </mat-dialog-content>
+  </ng-template>
+</ng-container>

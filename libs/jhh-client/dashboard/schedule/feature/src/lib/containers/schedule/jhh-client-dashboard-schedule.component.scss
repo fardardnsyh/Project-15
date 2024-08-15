@@ -1,0 +1,12 @@
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-bottom: 35px;
+
+  &.tablet,
+  &.desktop {
+    gap: 12px 32px;
+  }
+}

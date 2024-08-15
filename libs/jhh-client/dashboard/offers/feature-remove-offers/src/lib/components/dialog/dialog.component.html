@@ -1,0 +1,97 @@
+<ng-container *ngIf="offers.length">
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Are you sure you want to remove {{offers.length === 1 ? 'a offer' : 'the offers'}}?</h2>
+    <mat-dialog-content>
+
+      <ul *ngIf="offers.length === 1; else loopOffers">
+        <li>
+          <span>
+            <strong>
+              Position:
+            </strong>
+          </span>
+          <span>{{offers[0].position}}</span>
+        </li>
+        <li>
+          <span>
+            <strong>
+              Company:
+            </strong>
+          </span>
+          <span>{{offers[0].company}}</span>
+        </li>
+        <li>
+          <span>
+            <strong>
+              Location:
+            </strong>
+          </span>
+          <span>{{offers[0].location}}</span>
+        </li>
+        <li>
+          <span>
+            <strong>
+              Salary:
+            </strong>
+          </span>
+          <span>
+            {{offers[0] | formatOfferSalary}}
+          </span>
+        </li>
+        <li>
+          <span>
+            <strong>
+              Status:
+            </strong>
+          </span>
+          <span>{{ offers[0].status }}</span>
+        </li>
+        <li>
+          <span>
+            <strong>
+              Priority:
+            </strong>
+          </span>
+          <span class="offerPriority" [class]="'offerPriority--' + offers[0].priority">{{ offers[0].priority }}</span>
+        </li>
+      </ul>
+
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="(removeOffersInProgress$ | async) || (removeOffersError$ | async)">
+        <mat-progress-spinner *ngIf="removeOffersInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+        <mat-error *ngIf="removeOffersError$ | async as error">{{ error }}</mat-error>
+      </ng-container>
+
+      <mat-dialog-actions>
+        <button
+          mat-stroked-button
+          mat-dialog-close
+        >
+          Cancel
+        </button>
+        <button
+          mat-flat-button
+          color="warn"
+          (click)="handleRemove()"
+          [disabled]="(removeOffersInProgress$ | async)"
+        >
+          Remove
+        </button>
+      </mat-dialog-actions>
+
+    </mat-dialog-content>
+  </ng-template>
+</ng-container>
+
+<ng-template #loopOffers>
+  <ul>
+    <li *ngFor="let offer of offers">
+      <div>
+        <span>-&nbsp;</span>
+        <span><strong>{{offer.position}}</strong></span>
+        <span>&nbsp;&#124;&nbsp;</span>
+        <span>{{offer.company}}</span>
+      </div>
+    </li>
+  </ul>
+</ng-template>

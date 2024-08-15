@@ -1,0 +1,25 @@
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  .play {
+    flex-grow: 1;
+
+    mat-icon {
+      color: white !important;
+    }
+  }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 100%;
+
+  mat-form-field {
+    margin-bottom: 0;
+  }
+}

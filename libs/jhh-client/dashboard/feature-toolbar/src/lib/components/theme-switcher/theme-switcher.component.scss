@@ -1,0 +1,15 @@
+:host {
+  margin-left: auto;
+
+  ::ng-deep {
+    .mdc-switch__icon {
+      fill: transparent !important;
+    }
+
+    .mdc-label {
+      cursor: pointer;
+      margin-left: 4px;
+      color: var(--color__icon);
+    }
+  }
+}

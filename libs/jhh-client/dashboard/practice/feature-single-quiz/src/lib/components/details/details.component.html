@@ -1,0 +1,7 @@
+<div class="details">
+  <img *ngIf="imageUrl" [src]="imageUrl" [alt]="name">
+  <header>
+    <h2>{{name}}</h2>
+    <p *ngIf="description">{{description}}</p>
+  </header>
+</div>

@@ -1,0 +1,40 @@
+.brand {
+  padding: 0 8px;
+  margin-bottom: 42px;
+  position: relative;
+
+  &::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    bottom: -13px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.33);
+  }
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  * {
+    color: white !important;
+  }
+
+  mat-icon {
+    flex-shrink: 0;
+    $size: 35px;
+    width: $size;
+    height: $size;
+    font-size: $size;
+  }
+
+  &__name {
+    font-weight: 500;
+    font-size: 1.6rem;
+    margin-left: 10px;
+  }
+}

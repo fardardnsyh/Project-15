@@ -1,0 +1,122 @@
+::ng-deep {
+  .cal-day-badge {
+    background-color: var(--color__primary) !important;
+  }
+
+  .cal-month-view,
+  .cal-week-view,
+  .cal-day-view {
+    background-color: var(--color__bg) !important;
+    border-color: var(--color__divider) !important;
+
+    * {
+      border-color: var(--color__divider) !important;
+    }
+  }
+
+  .cal-month-view {
+    .cal-day-cell.cal-weekend {
+      .cal-day-number {
+        color: var(--color__warn) !important;
+      }
+    }
+
+    .cal-day-number {
+      opacity: 0.8;
+    }
+  }
+
+  .cal-week-view,
+  .cal-week-day {
+    .cal-day-headers {
+      .cal-header {
+        pointer-events: none;
+
+        &.cal-weekend {
+          span {
+            color: var(--color__warn) !important;
+          }
+        }
+
+        &.cal-today {
+          background-color: var(--color__bg) !important;
+        }
+      }
+    }
+
+    .cal-hour {
+      .cal-hour-segment {
+        border-bottom-color: var(--color__divider) !important;
+
+        &:hover {
+          background-color: var(--color__bg--darker) !important;
+        }
+      }
+    }
+
+    .cal-event-title {
+      color: var(--color__text) !important;
+    }
+
+    .cal-hour-odd {
+      background-color: var(--color__bg--darker) !important;
+    }
+  }
+
+  .cal-cell-row,
+  .cal-cell {
+    transition: 0.3s;
+  }
+
+  .cal-cell-row {
+    &:hover {
+      background-color: var(--color__bg) !important;
+    }
+
+    .cal-cell {
+      &.cal-open,
+      &.cal-drag-over,
+      &:hover {
+        background-color: var(--color__primary) !important;
+
+        .cal-day-badge {
+          background-color: var(--color__bg) !important;
+          color: var(--color__primary) !important;
+        }
+
+        .cal-day-number {
+          color: white !important;
+        }
+
+        * {
+          opacity: 1;
+        }
+      }
+
+      &.cal-today:not(&.cal-open) {
+        background-color: var(--color__bg) !important;
+
+        &:hover {
+          background-color: var(--color__primary) !important;
+        }
+      }
+    }
+  }
+
+  .cal-header {
+    &:hover {
+      .cal-cell {
+        background-color: var(--color__bg) !important;
+      }
+    }
+
+    .cal-cell {
+      pointer-events: none;
+    }
+  }
+
+  .cal-open-day-events {
+    background-color: var(--color__primary) !important;
+    box-shadow: none !important;
+  }
+}

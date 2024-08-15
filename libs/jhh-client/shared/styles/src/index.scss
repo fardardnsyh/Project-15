@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import '~swiper/swiper-bundle.css';
+
+@import 'lib/global/reset';
+@import 'lib/global/theming';
+@import 'lib/global/helpers';
+@import 'lib/global/quill';
+
+@import 'lib/components/mat-icon';
+@import 'lib/components/mat-form-field';
+@import 'lib/components/mat-divider';
+@import 'lib/components/mat-spinner';
+@import 'lib/components/mat-dialog';
+@import 'lib/components/mat-snackbar';
+@import 'lib/components/mat-select';
+@import 'lib/components/mat-accordion';
+@import 'lib/components/mat-table';
+@import 'lib/components/mat-paginator';
+@import 'lib/components/mat-form-field';
+@import 'lib/components/mat-menu';
+@import 'lib/components/mat-button';

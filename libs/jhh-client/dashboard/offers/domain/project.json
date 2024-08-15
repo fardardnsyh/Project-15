@@ -1,0 +1,14 @@
+{
+  "name": "jhh-client-dashboard-offers-domain",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jhh-client/dashboard/offers/domain/src",
+  "projectType": "library",
+  "targets": {
+  },
+  "tags": [
+    "platform:client",
+    "scope:client-dashboard",
+    "scope:client-dashboard-offers",
+    "type:domain"
+  ]
+}

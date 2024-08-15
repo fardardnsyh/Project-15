@@ -1,0 +1,15 @@
+.auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 10px;
+  background-color: var(--color__bg--darker);
+
+  &__wrapper {
+    width: 100vw;
+    max-width: 480px;
+    border-radius: var(--radius__base);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  }
+}

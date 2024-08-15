@@ -1,0 +1,33 @@
+<div [ngClass]="{'isSaving': (editEventInProgress$ | async)}">
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="calendarEvents"
+      [refresh]="refresh"
+      [activeDayIsOpen]="isActiveDayOpen"
+      (dayClicked)="handleDayClick($event.day)"
+      (eventClicked)="handleEventClick('click', $event.event)"
+      (eventTimesChanged)="handleTimesChange($event)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [events]="calendarEvents"
+      [refresh]="refresh"
+      (eventClicked)="handleEventClick('click', $event.event)"
+      (eventTimesChanged)="handleTimesChange($event)"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [events]="calendarEvents"
+      [refresh]="refresh"
+      (eventClicked)="handleEventClick('click', $event.event)"
+      (eventTimesChanged)="handleTimesChange($event)"
+    >
+    </mwl-calendar-day-view>
+  </div>
+</div>

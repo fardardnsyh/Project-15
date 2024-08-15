@@ -1,0 +1,11 @@
+<mat-button-toggle-group #group="matButtonToggleGroup" (change)="handleViewChange(group.value)">
+  <mat-button-toggle [value]="CalendarView.Month" [checked]="view === CalendarView.Month">
+    Month
+  </mat-button-toggle>
+  <mat-button-toggle [value]="CalendarView.Week" [checked]="view === CalendarView.Week">
+    Week
+  </mat-button-toggle>
+  <mat-button-toggle [value]="CalendarView.Day" [checked]="view === CalendarView.Day">
+    Day
+  </mat-button-toggle>
+</mat-button-toggle-group>

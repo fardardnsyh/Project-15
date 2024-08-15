@@ -1,0 +1,13 @@
+{
+  "name": "jhh-client-shared-domain",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jhh-client/shared/domain/src",
+  "projectType": "library",
+  "targets": {
+  },
+  "tags": [
+    "platform:client",
+    "type:client-shared",
+    "type:domain"
+  ]
+}

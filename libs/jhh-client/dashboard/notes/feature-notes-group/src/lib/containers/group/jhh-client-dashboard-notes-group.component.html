@@ -1,0 +1,38 @@
+<div class="notesGroup" *ngIf="(group$ | async) as group">
+  <jhh-edit-notes-group></jhh-edit-notes-group>
+  <jhh-remove-notes-group></jhh-remove-notes-group>
+
+  <ng-container *ngIf="totalPages">
+    <jhh-edit-note></jhh-edit-note>
+    <jhh-change-note-group></jhh-change-note-group>
+    <jhh-remove-note></jhh-remove-note>
+  </ng-container>
+
+  <div class="notesGroup__controls">
+    <jhh-add-note [groupId]="group.id"></jhh-add-note>
+    <jhh-notes-menu [group]="group"></jhh-notes-menu>
+    
+    <ng-container *ngIf="totalPages">
+      <jhh-searchbar [searchFunction]="searchNotes" [placeholder]="'Enter note name...'"></jhh-searchbar>
+      <jhh-sorting
+        [sortOptionsValues]="sortOptionsValues"
+        [defaultSort]="defaultSort"
+        [currentSort$]="currentSort$"
+        (updateCurrentSort)="handleSortChange($event)"
+      >
+      </jhh-sorting>
+    </ng-container>
+  </div>
+
+  <jhh-notes-list [sortedNotes]="sortedNotes$ | async" [groupSlug]="group.slug"></jhh-notes-list>
+
+  <ng-container *ngIf="totalPages">
+    <jhh-pagination
+      [totalPages]="totalPages"
+      [defaultPage]="defaultPage"
+      [currentPage$]="currentPage$"
+      (updateCurrentPage)="handlePageChange($event)"
+    >
+    </jhh-pagination>
+  </ng-container>
+</div>

@@ -1,0 +1,11 @@
+<ng-container *ngIf="sortedNotes as notes; else emptyList">
+  <ul [ngClass]="['notesList', breakpoint$ | async]" *ngIf="notes.length; else emptyList">
+    <li *ngFor="let note of notes; trackBy: trackByFn">
+      <jhh-note-card [slug]="'./' + note.slug" [note]="note"></jhh-note-card>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #emptyList>
+  <p>No notes found.</p>
+</ng-template>

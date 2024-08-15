@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+ul,
+ol {
+  padding-left: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color__primary);
+  transition: all 0.3s;
+}
+
+strong {
+  font-weight: 600;
+}
+
+.swiper-container {
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+
+  &[disabled] {
+    opacity: 0.5;
+  }
+}
+
+textarea {
+  min-height: 113px;
+  line-height: 1.35 !important;
+}
+
+td {
+  white-space: nowrap;
+}
+
+// prevent zoom in on input focus
+@media (max-width: 959px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+
+    &::placeholder {
+      font-size: 12px !important;
+    }
+  }
+}

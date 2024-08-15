@@ -1,0 +1,45 @@
+<ng-container *ngIf="noteToMove as note">
+  <ng-template #dialogContent>
+    <h2 mat-dialog-title>Change note group</h2>
+    <mat-dialog-content>
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <input
+            type="text"
+            placeholder="Choose an new group"
+            matInput
+            [matAutocomplete]="auto"
+            [formControlName]="formField.NewGroupName">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let group of filteredGroups$ | async; trackBy: trackByFn" [value]="group.name">
+              {{group.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="(changeNoteGroupInProgress$ | async) || (changeNoteGroupError$ | async)">
+          <mat-progress-spinner *ngIf="changeNoteGroupInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+          <mat-error *ngIf="changeNoteGroupError$ | async as error">{{ error }}</mat-error>
+        </ng-container>
+
+        <mat-dialog-actions>
+          <button
+            mat-stroked-button
+            mat-dialog-close
+          >
+            Cancel
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="!formGroup.valid || (changeNoteGroupInProgress$ | async)"
+          >
+            Submit
+          </button>
+        </mat-dialog-actions>
+      </form>
+    </mat-dialog-content>
+  </ng-template>
+</ng-container>

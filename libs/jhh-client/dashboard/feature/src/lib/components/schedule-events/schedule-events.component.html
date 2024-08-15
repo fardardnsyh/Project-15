@@ -1,0 +1,39 @@
+<div class="box">
+  <h2>Incoming events</h2>
+
+  <ng-container *ngIf="events.length; else emptyList">
+    <ul>
+      <li *ngFor="let event of events">
+        <div class="dates">
+          <mat-icon>event</mat-icon>
+          <span>{{ event.start | date: 'dd.MM.yy HH:mm' }}</span>
+          <span>-</span>
+          <span>{{ event.end | date: 'dd.MM.yy HH:mm' }}</span>
+        </div>
+        <span>
+          <strong>
+            {{event.title}}
+          </strong>
+        </span>
+        <p *ngIf="event.description">
+          {{ event.description.length > 115 ? (event.description | slice:0:115) + '...' : event.description }}
+        </p>
+        <mat-divider></mat-divider>
+      </li>
+    </ul>
+  </ng-container>
+
+  <ng-template #emptyList>
+    <p>No events found.</p>
+  </ng-template>
+
+  <div class="seeMore">
+    <a *ngIf="!events.length" mat-flat-button color="primary" [routerLink]="clientRoute.ScheduleLink">
+      Add event
+    </a>
+
+    <a *ngIf="events.length" mat-stroked-button [routerLink]="clientRoute.ScheduleLink">
+      See more
+    </a>
+  </div>
+</div>

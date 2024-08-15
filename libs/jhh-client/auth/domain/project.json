@@ -1,0 +1,13 @@
+{
+  "name": "jhh-client-auth-domain",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jhh-client/auth/domain/src",
+  "projectType": "library",
+  "targets": {
+  },
+  "tags": [
+    "platform:client",
+    "scope:client-auth",
+    "type:domain"
+  ]
+}

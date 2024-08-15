@@ -1,0 +1,33 @@
+.mat-mdc-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+
+  .mdc-text-field {
+    background-color: var(--color__bg) !important;
+  }
+
+  &.fieldColor {
+    width: 83px;
+
+    input {
+      height: 40px !important;
+      cursor: pointer;
+
+      &::-moz-color-swatch {
+        border-color: transparent !important;
+      }
+    }
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    &:before {
+      content: none;
+    }
+
+    .mat-mdc-form-field-error-wrapper {
+      padding: 0;
+      position: unset !important;
+      margin-top: 6px;
+    }
+  }
+}

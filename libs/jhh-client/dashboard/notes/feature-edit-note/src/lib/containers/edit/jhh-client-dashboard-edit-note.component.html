@@ -1,0 +1,3 @@
+<ng-container *ngIf="noteToEdit$ | async as note">
+  <jhh-edit-note-dialog [noteToEdit]="note"></jhh-edit-note-dialog>
+</ng-container>

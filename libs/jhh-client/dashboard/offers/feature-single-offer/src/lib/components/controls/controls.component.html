@@ -1,0 +1,31 @@
+<div class="controls">
+  <a
+    [href]="offer.link"
+    target="_blank"
+    rel="noopener noreferrer"
+    mat-mini-fab
+    color="primary"
+    aria-label="Open offer link"
+    matTooltip="Open offer link"
+  >
+    <mat-icon>launch</mat-icon>
+  </a>
+  <button
+    mat-mini-fab
+    color="primary"
+    aria-label="Edit offer"
+    matTooltip="Edit offer"
+    (click)="openEditOfferDialog()"
+  >
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button
+    mat-mini-fab
+    color="primary"
+    aria-label="Remove offer"
+    matTooltip="Remove offer"
+    (click)="openRemoveOffersDialog()"
+  >
+    <mat-icon>delete_forever</mat-icon>
+  </button>
+</div>

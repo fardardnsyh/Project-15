@@ -1,0 +1,185 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+
+  username String @unique
+  password String
+
+  notesGroups   NotesGroup[]
+  boardColumns  BoardColumn[]
+  Offer         Offer[]
+  ScheduleEvent ScheduleEvent[]
+  Quiz          Quiz[]
+
+  unsavedBoardRequestId String
+}
+
+model NotesGroup {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+  slug String
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  notes Note[]
+
+  @@unique([name, userId], name: "name_userId_idx")
+  @@unique([slug, userId], name: "slug_userId_idx")
+}
+
+model Note {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name    String
+  slug    String
+  content String
+
+  groupId String     @db.ObjectId
+  group   NotesGroup @relation(fields: [groupId], references: [id])
+
+  @@unique([slug, groupId], name: "slug_groupId_idx")
+  @@unique([name, groupId], name: "name_groupId_idx")
+}
+
+model BoardColumn {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  color       String
+  isTemporary Boolean @default(false)
+
+  order  Int
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  items BoardColumnItem[]
+}
+
+model BoardColumnItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  content String
+
+  order    Int
+  columnId String      @db.ObjectId
+  column   BoardColumn @relation(fields: [columnId], references: [id])
+}
+
+type StatusUpdate {
+  date   DateTime
+  status String
+}
+
+model Offer {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  statusUpdates StatusUpdate[]
+
+  position       String
+  slug           String
+  link           String
+  company        String
+  companyType    String
+  location       String
+  status         String
+  priority       String
+  minSalary      Int?
+  maxSalary      Int?
+  salaryCurrency String?
+  email          String?
+  description    String?
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([slug, userId], name: "slug_userId_idx")
+}
+
+model ScheduleEvent {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  start DateTime
+  end   DateTime
+
+  title       String
+  color       String
+  description String?
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Quiz {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  slug        String
+  description String?
+  imageUrl    String?
+
+  items   QuizItem[]
+  results QuizResults[]
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([name, userId], name: "name_userId_idx")
+  @@unique([slug, userId], name: "slug_userId_idx")
+}
+
+model QuizResults {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items      QuizResult[]
+  totalScore Int
+  percentage Int
+
+  quizId String @db.ObjectId
+  quiz   Quiz   @relation(fields: [quizId], references: [id])
+}
+
+type QuizItem {
+  question String
+  answers  QuizItemAnswer[]
+}
+
+type QuizItemAnswer {
+  isCorrect Boolean
+  text      String
+}
+
+type QuizResult {
+  question       String
+  userAnswers    String[]
+  correctAnswers String[]
+  isCorrect      Boolean
+}

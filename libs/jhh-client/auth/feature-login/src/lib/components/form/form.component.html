@@ -1,0 +1,61 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input
+      matInput
+      [formControlName]="formField.Username"
+    >
+    <mat-error *ngIf="formGroup.get(formField.Username)?.hasError(formErrorKey.Required)">
+      Username is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input
+      id="password-input"
+      matInput
+      [type]="hidePassword ? 'password' : 'text'"
+      autocomplete="true"
+      [formControlName]="formField.Password"
+    >
+    <mat-icon matSuffix id="password-type-toggle" (click)="hidePassword = !hidePassword">
+      {{hidePassword ? 'visibility_off' : 'visibility'}}
+    </mat-icon>
+    <mat-error *ngIf="formGroup.get(formField.Password)?.hasError(formErrorKey.Required)">
+      Password is required
+    </mat-error>
+  </mat-form-field>
+
+  <ng-container *ngIf="(loginInProgress$ | async) || (loginError$ | async)">
+    <div class="authTemplate__status">
+      <ng-container *ngIf="loginInProgress$ | async; else notLoading">
+        <mat-spinner></mat-spinner>
+      </ng-container>
+      <ng-template #notLoading>
+        <ng-container *ngIf="loginError$ | async as error">
+          <mat-error>
+            {{ error }}
+          </mat-error>
+        </ng-container>
+      </ng-template>
+    </div>
+  </ng-container>
+
+  <div class="authTemplate__buttons">
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="!formGroup.valid || (loginInProgress$ | async)"
+    >
+      Submit
+    </button>
+    <a
+      [routerLink]="clientRoute.RegisterLink"
+      mat-button
+    >
+      Don't have an account? Register
+    </a>
+  </div>
+</form>

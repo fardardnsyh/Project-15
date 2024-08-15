@@ -1,0 +1,76 @@
+.statusUpdates {
+  background-color: var(--color__bg);
+  padding: 40px 25px;
+  border-radius: var(--radius__base);
+
+  h3 {
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  ul {
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &:not(:last-child) {
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: var(--color__scroll);
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        position: relative;
+
+        &::before {
+          content: '\2794';
+          position: absolute;
+          bottom: -22px;
+          transform: rotate(90deg);
+          font-size: 3rem;
+          color: var(--color__icon);
+          z-index: 2;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -22px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 45px;
+          height: 40px;
+          background-color: var(--color__bg);
+        }
+      }
+
+      &:last-child {
+        mat-icon {
+          color: var(--color__primary) !important;
+        }
+
+        h4 {
+          color: var(--color__primary) !important;
+          font-weight: 500;
+        }
+      }
+
+      mat-icon {
+        $size: 32px;
+        font-size: $size;
+        height: $size;
+        width: $size;
+      }
+
+      span {
+        margin-top: 4px;
+      }
+
+      h4 {
+        margin-top: 4px;
+        font-size: 1.6rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.details {
+  img {
+    height: 140px;
+    width: 100%;
+    object-fit: contain;
+    object-position: center;
+    background-color: var(--color__bg--darker);
+    padding: 12px 20px;
+    border-radius: var(--radius__base);
+  }
+
+  header {
+    margin-top: 20px;
+  }
+}

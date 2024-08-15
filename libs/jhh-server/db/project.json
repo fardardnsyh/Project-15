@@ -1,0 +1,23 @@
+{
+  "name": "jhh-server-db",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jhh-server/db/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/jhh-server/db/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": [
+    "platform:server",
+    "scope:server-db"
+  ]
+}

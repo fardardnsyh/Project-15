@@ -1,0 +1,163 @@
+<div [ngClass]="['playContainer', breakpoint$ | async]">
+  <ng-container *ngIf="!quizResults || quizResults.length === 0; else results">
+    <mat-progress-bar mode="determinate" [value]="progressPercentage"></mat-progress-bar>
+
+    <div class="questionsNavigation">
+      <button
+        *ngFor="let item of shuffledAndLimitedQuestions; let i = index"
+        type="button"
+        [ngClass]="{'answered': selectedAnswers.has(i) && selectedAnswers.get(i)!.length > 0, 'current': i === currentQuestionIndex}"
+        (click)="goToQuestion(i)"
+      >
+        {{ i + 1 }}
+      </button>
+    </div>
+
+    <form (ngSubmit)="onSubmitQuiz()">
+      <div *ngIf="shuffledAndLimitedQuestions[currentQuestionIndex] as currentQuestion">
+        <h3 class="question">
+          <span>
+            {{ currentQuestionIndex + 1 }}/{{ shuffledAndLimitedQuestions.length }}
+          </span>
+          <span>
+            {{ currentQuestion.question }}
+          </span>
+        </h3>
+        <mat-radio-group
+          *ngIf="!isMultipleChoice(currentQuestionIndex)"
+          [value]="selectedAnswers.get(currentQuestionIndex)?.[0]"
+          (change)="onSelectAnswer(currentQuestionIndex, $event.value)"
+        >
+          <mat-radio-button
+            *ngFor="let answer of currentQuestion.answers"
+            color="primary"
+            [value]="answer.text"
+          >
+            {{ answer.text }}
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <div
+          *ngIf="isMultipleChoice(currentQuestionIndex)"
+          class="checkboxes"
+        >
+          <mat-checkbox
+            *ngFor="let answer of currentQuestion.answers"
+            color="primary"
+            [disabled]="shouldDisableAnswer(currentQuestionIndex, answer.text)"
+            [checked]="selectedAnswers.get(currentQuestionIndex)?.includes(answer.text)"
+            (change)="onSelectAnswer(currentQuestionIndex, answer.text)"
+          >
+            {{ answer.text }}
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button
+          mat-flat-button
+          type="button"
+          (click)="previousQuestion()"
+          [disabled]="currentQuestionIndex === 0">
+          <mat-icon>arrow_back</mat-icon>
+          <span>
+            Previous
+          </span>
+        </button>
+        <button
+          mat-flat-button
+          type="button"
+          (click)="nextQuestion()"
+          [disabled]="currentQuestionIndex === shuffledAndLimitedQuestions.length - 1">
+          <span>
+            Next
+          </span>
+          <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+        </button>
+        <button
+          *ngIf="allQuestionsAnswered"
+          mat-raised-button
+          type="submit"
+          color="primary"
+          class="result"
+        >
+          <mat-icon>assessment</mat-icon>
+          <span>
+            Show result
+          </span>
+        </button>
+        <button
+          mat-stroked-button
+          type="button"
+          class="quit"
+          (click)="quitQuiz()"
+        >
+          <mat-icon>exit_to_app</mat-icon>
+          <span>
+            Quit
+          </span>
+        </button>
+      </div>
+    </form>
+  </ng-container>
+
+  <ng-template #results>
+    <div *ngIf="quizResults?.length" class="results">
+      <h3>
+        Quiz results
+        <span class="resultsScore">{{ totalScore }}/{{ shuffledAndLimitedQuestions.length }}</span>
+        <span [ngClass]="['resultsPercentage', percentageClass]">{{ percentage }}%</span>
+      </h3>
+      <ul>
+        <li *ngFor="let result of quizResults; let i = index">
+          <h4>
+            <mat-icon
+              [ngClass]="result.isCorrect ? 'true' : 'false'"
+            >
+              {{ result.isCorrect ? 'check' : 'clear' }}
+            </mat-icon>
+            <span>
+              {{ i + 1 }}. {{ result.question }}
+            </span>
+          </h4>
+          <p><strong>Your answer:</strong> {{ result.userAnswers.join(', ') }}</p>
+          <p><strong>Correct answer:</strong> {{ result.correctAnswers.join(', ') }}</p>
+          <mat-divider></mat-divider>
+        </li>
+      </ul>
+      <div class="buttons">
+        <button
+          mat-stroked-button
+          type="button"
+          (click)="playAgain()"
+        >
+          <mat-icon>replay</mat-icon>
+          <span>
+          Play again
+        </span>
+        </button>
+        <button
+          mat-flat-button
+          type="button"
+          color="primary"
+          (click)="quitQuiz()"
+        >
+          <mat-icon style="color: white!important">exit_to_app</mat-icon>
+          <span>
+            Quit
+          </span>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+  <header>
+    <img *ngIf="quiz.imageUrl" [src]="quiz.imageUrl" [alt]="quiz.name">
+    <div>
+      <h2>{{ quiz.name }}</h2>
+      <p *ngIf="quiz.description">{{ quiz.description }}</p>
+    </div>
+  </header>
+</div>
+
+

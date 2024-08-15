@@ -1,0 +1,29 @@
+mat-accordion {
+  .mat-expansion-panel {
+    background-color: var(--color__bg) !important;
+    box-shadow: none !important;
+  }
+
+  mat-expansion-panel-header {
+    height: auto !important;
+    padding: 6px 20px !important;
+    font-size: 1.6rem !important;
+
+    .mat-content {
+      position: relative;
+      min-height: 48px;
+
+      mat-panel-title {
+        padding-right: 50px !important;
+        margin-right: 0 !important;
+      }
+
+      button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 5;
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.addNote {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  &__openBtn {
+    .mat-icon {
+      color: white !important;
+    }
+  }
+}

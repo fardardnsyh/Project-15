@@ -1,0 +1,45 @@
+<ng-container *ngIf="sortedNotesGroups as groups; else emptyList">
+  <ul [ngClass]="['groupsList', breakpoint$ | async]" *ngIf="groups.length; else emptyList">
+    <li class="groupsList__item" *ngFor="let group of groups; trackBy: trackByFn">
+      <a [routerLink]="'./' + group.slug">
+        <span
+          *ngIf="group.notes.length"
+          class="circleCounter">
+          {{group.notes.length <= 99 ? group.notes.length : '99+'}}
+        </span>
+        <h3 class="groupsList__itemName">
+          {{ group.name }}
+        </h3>
+        <ng-container>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Group actions"
+            class="groupsList__itemMenu"
+            (click)="$event.preventDefault(); $event.stopPropagation();"
+          >
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openEditNotesGroupDialog(group)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="handleDuplicate(group.id)">
+              <mat-icon>file_copy</mat-icon>
+              <span>Duplicate</span>
+            </button>
+            <button mat-menu-item (click)="openRemoveNotesGroupDialog(group)">
+              <mat-icon>delete_forever</mat-icon>
+              <span>Remove</span>
+            </button>
+          </mat-menu>
+        </ng-container>
+      </a>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #emptyList>
+  <p>No groups found.</p>
+</ng-template>

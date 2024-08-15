@@ -1,0 +1,13 @@
+<mat-nav-list *ngIf="sidebarItems.length">
+  <a *ngFor="let item of sidebarItems"
+     [routerLink]="item.route"
+     class="sidenav__item"
+     [routerLinkActive]="'sidenav__item--active'"
+     [routerLinkActiveOptions]="{exact: item.exact ?? false}"
+  >
+    <mat-list-item>
+      <mat-icon>{{item.icon}}</mat-icon>
+      <span *ngIf="(isSidebarExpanded || isBreakpointMobile)">{{item.text}}</span>
+    </mat-list-item>
+  </a>
+</mat-nav-list>

@@ -1,0 +1,21 @@
+<div class="paginationControls">
+  <button mat-mini-fab color="primary" (click)="goToPreviousPage()" [disabled]="currentPage === 1">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Page of {{totalPages}}</mat-label>
+    <input
+      matInput
+      [(ngModel)]="inputPage"
+      (input)="setPage($event)"
+      type="number"
+      min="1"
+      [max]="totalPages"
+    />
+  </mat-form-field>
+
+  <button mat-mini-fab color="primary" (click)="goToNextPage()" [disabled]="currentPage === totalPages">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+</div>

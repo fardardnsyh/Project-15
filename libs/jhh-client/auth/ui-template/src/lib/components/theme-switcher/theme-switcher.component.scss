@@ -1,0 +1,17 @@
+.themeSwitcher {
+  margin: 0 20px;
+  padding: 0 20px 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ::ng-deep {
+    .mdc-label {
+      color: var(--color__icon);
+    }
+
+    svg {
+      display: none !important;
+    }
+  }
+}

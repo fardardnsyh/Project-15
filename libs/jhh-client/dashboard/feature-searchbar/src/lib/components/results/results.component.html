@@ -1,0 +1,18 @@
+<div *ngIf="loading || (results && searchStarted)" class="results">
+  <ng-container *ngIf="!loading">
+    <mat-list *ngIf="results?.length" dense>
+      <mat-list-item *ngFor="let item of results; trackBy: trackByFn">
+        <a *ngIf="item.slug; else noLink" [routerLink]="item.slug">{{ item.name }}</a>
+        <ng-template #noLink>
+          <span>{{ item.name }}</span>
+        </ng-template>
+      </mat-list-item>
+    </mat-list>
+    <div *ngIf="results?.length === 0" class="results__noFound">
+      No results found.
+    </div>
+  </ng-container>
+  <div *ngIf="loading" class="results__loading">
+    Searching...
+  </div>
+</div>

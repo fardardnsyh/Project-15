@@ -1,0 +1,30 @@
+.loading {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color__bg--darker);
+
+  .mat-mdc-progress-spinner {
+    max-width: 90px !important;
+    max-height: 90px !important;
+  }
+
+  p {
+    margin-top: 30px;
+    font-size: 2.2rem;
+    max-width: 600px;
+    text-align: center;
+    color: var(--color__text);
+
+    &.error {
+      color: var(--color__warn);
+    }
+  }
+}
+
+.outlet {
+  padding: 40px 20px 120px 20px;
+}

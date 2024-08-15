@@ -1,0 +1,15 @@
+mat-accordion {
+  li {
+    a {
+      color: var(--color__text);
+
+      &:hover {
+        color: var(--color__primary);
+      }
+    }
+  }
+
+  .groupButton {
+    margin-top: 10px;
+  }
+}

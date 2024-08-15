@@ -1,0 +1,13 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_horiz</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="openEditOfferDialog()">
+    <mat-icon>edit</mat-icon>
+    <span>Edit</span>
+  </button>
+  <button mat-menu-item (click)="openRemoveOfferDialog()">
+    <mat-icon>delete_forever</mat-icon>
+    <span>Remove</span>
+  </button>
+</mat-menu>

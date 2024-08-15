@@ -1,0 +1,26 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="menu"
+  aria-label="Note more actions"
+  (click)="$event.preventDefault(); $event.stopPropagation();"
+>
+  <mat-icon>more_horiz</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="openEditNoteDialog()">
+    <mat-icon>edit</mat-icon>
+    <span>Edit</span>
+  </button>
+  <button *ngIf="(groups$| async)!.length > 1" mat-menu-item (click)="openChangeNoteGroupDialog()">
+    <mat-icon>redo</mat-icon>
+    <span>Change group</span>
+  </button>
+  <button mat-menu-item (click)="handleDuplicate()">
+    <mat-icon>file_copy</mat-icon>
+    <span>Duplicate</span>
+  </button>
+  <button mat-menu-item (click)="openRemoveNoteDialog()">
+    <mat-icon>delete_forever</mat-icon>
+    <span>Remove</span>
+  </button>
+</mat-menu>

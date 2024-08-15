@@ -1,0 +1,26 @@
+{
+  "name": "jhh-client-dashboard-notes-domain",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jhh-client/dashboard/notes/domain/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs/jhh-client/dashboard/notes/domain",
+        "main": "libs/jhh-client/dashboard/notes/domain/src/index.ts",
+        "tsConfig": "libs/jhh-client/dashboard/notes/domain/tsconfig.lib.json",
+        "assets": []
+      }
+    }
+  },
+  "tags": [
+    "platform:client",
+    "scope:client-dashboard",
+    "scope:client-dashboard-notes",
+    "type:domain"
+  ]
+}

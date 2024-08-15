@@ -1,0 +1,55 @@
+.details {
+  background-color: var(--color__bg--darker);
+  border-radius: var(--radius__base);
+  padding: 20px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  &.tablet {
+    gap: 15px 30px;
+  }
+
+  &.desktop {
+    gap: 15px 40px;
+  }
+
+  &__tile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      .label {
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 1.1rem;
+        color: var(--color__icon);
+        margin-bottom: 2px;
+      }
+
+      .email {
+        background-color: transparent;
+        border: none;
+        font-size: 1.4rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: inherit;
+
+        mat-icon {
+          $size: 15px;
+          width: $size;
+          height: $size;
+          font-size: $size;
+        }
+      }
+    }
+  }
+}

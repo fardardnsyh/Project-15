@@ -1,0 +1,21 @@
+<ng-container *ngIf="note">
+  <ng-container *ngIf="slug; else notClickable">
+    <a [routerLink]="[slug]" class="noteCard">
+      <ng-container *ngTemplateOutlet="noteCardContent"></ng-container>
+    </a>
+  </ng-container>
+  <ng-template #notClickable>
+    <div class="noteCard">
+      <ng-container *ngTemplateOutlet="noteCardContent"></ng-container>
+    </div>
+  </ng-template>
+
+  <ng-template #noteCardContent>
+    <jhh-note-card-header [name]="note.name" [content]="note.content"></jhh-note-card-header>
+    <mat-divider></mat-divider>
+    <span class="noteCard__bottom">
+      <jhh-note-card-updated-at [updatedAt]="note.updatedAt"></jhh-note-card-updated-at>
+      <jhh-note-card-menu [note]="note"></jhh-note-card-menu>
+    </span>
+  </ng-template>
+</ng-container>

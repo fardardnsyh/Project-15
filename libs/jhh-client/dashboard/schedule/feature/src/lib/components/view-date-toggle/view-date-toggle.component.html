@@ -1,0 +1,28 @@
+<div class="buttonsContainer">
+  <button
+    mat-icon-button
+    mwlCalendarPreviousView
+    [view]="view"
+    [(viewDate)]="viewDate"
+    (viewDateChange)="handleViewDateChange(viewDate, false)">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button
+    class="selectToday"
+    mat-flat-button
+    color="primary"
+    mwlCalendarToday
+    [(viewDate)]="viewDate"
+    (viewDateChange)="handleViewDateChange(viewDate, true)">
+    <mat-icon>calendar_today</mat-icon>
+    Select today
+  </button>
+  <button
+    mat-icon-button
+    mwlCalendarNextView
+    [view]="view"
+    [(viewDate)]="viewDate"
+    (viewDateChange)="handleViewDateChange(viewDate, false)">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</div>

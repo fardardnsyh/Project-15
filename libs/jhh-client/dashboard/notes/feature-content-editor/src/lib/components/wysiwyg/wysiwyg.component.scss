@@ -1,0 +1,48 @@
+quill-editor {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 12px;
+  position: relative;
+
+  ::ng-deep {
+    iframe.ql-video {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      display: block;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+
+    .ql-container {
+      border-color: var(--color__divider) !important;
+      background-color: var(--color__bg) !important;
+
+      .ql-blank {
+        &::before {
+          color: var(--color__text) !important;
+          opacity: 0.6;
+        }
+      }
+    }
+
+    .ql-tooltip[data-mode='image']::before {
+      content: 'Enter image URL:';
+    }
+
+    .ql-tooltip {
+      left: 50% !important;
+      right: unset !important;
+      transform: translateX(-50%) !important;
+    }
+
+    .ql-toolbar {
+      position: sticky;
+      width: 100%;
+      z-index: 5;
+      top: 0;
+      background-color: var(--color__bg);
+    }
+  }
+}

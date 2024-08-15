@@ -1,0 +1,49 @@
+<div [ngClass]="['details', breakpoint]">
+  <div class="details__tile">
+    <mat-icon>business_center</mat-icon>
+    <div>
+      <span class="label">Company type</span>
+      <span class="value">{{offer.companyType}}</span>
+    </div>
+  </div>
+  <div class="details__tile">
+    <mat-icon>place</mat-icon>
+    <div>
+      <span class="label">Location</span>
+      <span class="value">{{offer.location}}</span>
+    </div>
+  </div>
+  <div class="details__tile">
+    <mat-icon>{{statusIcon}}</mat-icon>
+    <div>
+      <span class="label">Status</span>
+      <span class="value">{{offer.status}}</span>
+    </div>
+  </div>
+  <div class="details__tile">
+    <mat-icon>priority_high</mat-icon>
+    <div>
+      <span class="label">Priority</span>
+      <span class="offerPriority" [class]="'offerPriority--' + offer.priority">{{ offer.priority }}</span>
+    </div>
+  </div>
+  <div class="details__tile">
+    <mat-icon>monetization_on</mat-icon>
+    <div>
+      <span class="label">Salary</span>
+      <span class="value">
+        {{offer | formatOfferSalary}}
+      </span>
+    </div>
+  </div>
+  <div class="details__tile" *ngIf="offer.email">
+    <mat-icon>email</mat-icon>
+    <div>
+      <span class="label">E-mail</span>
+      <button class="email" matTooltip="Click to copy" (click)="copyEmail()">
+        <mat-icon>content_copy</mat-icon>
+        {{offer.email}}
+      </button>
+    </div>
+  </div>
+</div>

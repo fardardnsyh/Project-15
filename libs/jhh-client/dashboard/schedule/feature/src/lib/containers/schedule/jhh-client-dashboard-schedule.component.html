@@ -1,0 +1,43 @@
+<div [ngClass]="['controls', breakpoint$ | async]">
+  <jhh-schedule-add></jhh-schedule-add>
+  <ng-container *ngIf="(events$ | async)?.length">
+    <jhh-schedule-view-date-toggle
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (toggleIsActiveDayOpen)="toggleIsActiveDayOpen($event)"
+    >
+    </jhh-schedule-view-date-toggle>
+    <jhh-schedule-view-date
+      [view]="view"
+      [viewDate]="viewDate"
+    >
+    </jhh-schedule-view-date>
+    <jhh-schedule-view-toggle
+      [view]="view"
+      (viewChange)="setView($event)"
+    >
+    </jhh-schedule-view-toggle>
+    <jhh-schedule-event-dialog
+      [clickedEventId$]="clickedEventId$"
+    >
+    </jhh-schedule-event-dialog>
+  </ng-container>
+</div>
+
+<ng-container *ngIf="(events$ | async)?.length; else emptyList">
+  <jhh-schedule-calendar
+    [events]="(events$ | async)!"
+    [clickedEventId$]="clickedEventId$"
+    [view]="view"
+    [viewDate]="viewDate"
+    [isActiveDayOpen]="isActiveDayOpen"
+    (toggleIsActiveDayOpen)="toggleIsActiveDayOpen($event)"
+  >
+  </jhh-schedule-calendar>
+</ng-container>
+
+<ng-template #emptyList>
+  <p>
+    No events found.
+  </p>
+</ng-template>

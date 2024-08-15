@@ -1,0 +1,45 @@
+<div class="box">
+  <h2>Board</h2>
+  
+  <ng-container *ngIf="columns.length; else emptyList">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let column of columns">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span
+              *ngIf="column.items.length"
+              class="circleCounter circleCounter--static"
+              [style.background-color]="column.color"
+            >
+              {{column.items.length <= 99 ? column.items.length : '99+'}}
+            </span>
+            <span>{{column.name}}</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ul>
+          <li *ngFor="let item of column.items; let i = index" [hidden]="i >= 10">
+            - {{item.content}}
+          </li>
+        </ul>
+        <p class="andMore" *ngIf="column.items.length > 10">... and more</p>
+        <p *ngIf="!column.items.length">No items found.</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+
+  <ng-template #emptyList>
+    <p>
+      No board columns found.
+    </p>
+  </ng-template>
+
+  <div class="seeMore">
+    <a *ngIf="!columns.length" mat-flat-button color="primary" [routerLink]="clientRoute.BoardLink">
+      Add column
+    </a>
+
+    <a *ngIf="columns.length" mat-stroked-button [routerLink]="clientRoute.BoardLink">
+      See more
+    </a>
+  </div>
+</div>

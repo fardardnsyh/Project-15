@@ -1,0 +1,9 @@
+.notesGroup {
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px 25px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+  }
+}

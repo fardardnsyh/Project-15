@@ -1,0 +1,25 @@
+li {
+  a {
+    .name {
+      transition: color 0.3s;
+      color: var(--color__text);
+    }
+
+    &:hover {
+      .name {
+        color: var(--color__primary);
+      }
+    }
+  }
+
+  p {
+    color: var(--color__icon);
+    font-size: 1.2rem;
+    margin-top: 6px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "jhh-client-auth-ui-template",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jhh-client/auth/ui-template/src",
+  "prefix": "jhh",
+  "tags": [
+    "platform:client"
+  ],
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "libs/jhh-client/auth/ui-template/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/jhh-client/auth/ui-template/**/*.ts",
+          "libs/jhh-client/auth/ui-template/**/*.html"
+        ]
+      }
+    }
+  }
+}

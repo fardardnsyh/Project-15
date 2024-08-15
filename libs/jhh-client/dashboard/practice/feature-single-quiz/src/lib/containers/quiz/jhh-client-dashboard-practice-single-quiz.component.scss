@@ -1,0 +1,31 @@
+.columns {
+  display: grid;
+  align-items: flex-start;
+  gap: 24px;
+
+  &.tablet,
+  &.desktop {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  &.tablet,
+  &.desktop {
+    .left {
+      grid-column: span 1 / span 1;
+    }
+
+    .right {
+      grid-column: span 2 / span 2;
+    }
+  }
+
+  .box {
+    background-color: var(--color__bg);
+    border-radius: var(--radius__base);
+    padding: 20px;
+
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+  }
+}

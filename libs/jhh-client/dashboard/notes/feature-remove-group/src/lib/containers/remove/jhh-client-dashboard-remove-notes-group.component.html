@@ -1,0 +1,3 @@
+<ng-container *ngIf="notesGroupToRemove$ | async as group">
+  <jhh-remove-notes-group-dialog [groupToRemove]="group"></jhh-remove-notes-group-dialog>
+</ng-container>

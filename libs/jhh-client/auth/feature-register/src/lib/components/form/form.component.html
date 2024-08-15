@@ -1,0 +1,107 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input
+      matInput
+      [formControlName]="formField.Username"
+    >
+    <mat-error *ngIf="formGroup.get(formField.Username)?.hasError(formErrorKey.Required)">
+      Username is required
+    </mat-error>
+    <mat-error *ngIf="formGroup.get(formField.Username)?.hasError(formErrorKey.MinLength)">
+      Minimum length of username is {{registerFieldLength.MinUsernameLength}} characters
+    </mat-error>
+    <mat-error *ngIf="formGroup.get(formField.Username)?.hasError(formErrorKey.MaxLength)">
+      Maximum length of username is {{registerFieldLength.MaxUsernameLength}} characters
+    </mat-error>
+    <mat-error *ngIf="formGroup.get(formField.Username)?.hasError(formErrorKey.Whitespace)">
+      Username cannot contain whitespace.
+    </mat-error>
+  </mat-form-field>
+
+  <ng-container>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        id="password-input"
+        matInput
+        autocomplete="true"
+        [type]="hidePassword ? 'password' : 'text'"
+        [formControlName]="formField.Password"
+        (input)="validatePasswords()"
+      >
+      <mat-icon id="password-type-toggle-first" matSuffix (click)="hidePassword = !hidePassword">
+        {{hidePassword ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
+      <mat-progress-bar
+        mode="determinate"
+        [value]="passwordStrength$ | async"
+        [ngClass]="(progressBarClass$ | async)!">
+      </mat-progress-bar>
+      <mat-error *ngIf="formGroup.get(formField.Password)?.hasError(formErrorKey.Required)">
+        Password is required
+      </mat-error>
+      <mat-error *ngIf="formGroup.get(formField.Password)?.hasError(formErrorKey.MinLength)">
+        Minimum length of password is {{registerFieldLength.MinPasswordLength}} characters
+      </mat-error>
+      <mat-error *ngIf="formGroup.get(formField.Password)?.hasError(formErrorKey.MaxLength)">
+        Maximum length of password is {{registerFieldLength.MaxPasswordLength}} characters
+      </mat-error>
+      <mat-error *ngIf="formGroup.get(formField.Password)?.hasError(formErrorKey.Whitespace)">
+        Password cannot contain whitespace.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Confirm Password</mat-label>
+      <input
+        matInput
+        autocomplete="true"
+        [type]="hidePassword ? 'password' : 'text'"
+        [formControlName]="formField.ConfirmPassword"
+        (input)="validatePasswords()"
+      >
+      <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+        {{hidePassword ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
+    </mat-form-field>
+
+    <mat-error
+      class="password-match-error"
+      *ngIf="formGroup.get(formField.Password)?.valid && formGroup.hasError(formErrorKey.PasswordMatch)"
+    >
+      Passwords do not match.
+    </mat-error>
+  </ng-container>
+
+  <ng-container *ngIf="(registerInProgress$ | async) || (registerError$ | async)">
+    <div class="authTemplate__status">
+      <ng-container *ngIf="registerInProgress$ | async; else notLoading">
+        <mat-spinner></mat-spinner>
+      </ng-container>
+      <ng-template #notLoading>
+        <ng-container *ngIf="registerError$ | async as error">
+          <mat-error>
+            {{ error }}
+          </mat-error>
+        </ng-container>
+      </ng-template>
+    </div>
+  </ng-container>
+
+  <div class="authTemplate__buttons">
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="!formGroup.valid || (registerInProgress$ | async)">
+      Submit
+    </button>
+    <a
+      [routerLink]="clientRoute.LoginLink"
+      mat-button
+    >
+      Already have an account? Login
+    </a>
+  </div>
+</form>

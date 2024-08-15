@@ -1,0 +1,14 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  * {
+    text-align: center;
+  }
+
+  span {
+    color: var(--color__primary);
+    font-size: 12rem;
+  }
+}

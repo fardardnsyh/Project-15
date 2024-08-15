@@ -1,0 +1,10 @@
+<div class="authTemplate">
+  <jhh-auth-header></jhh-auth-header>
+  <jhh-auth-content [heading]="heading" [template]="authFormTemplate"></jhh-auth-content>
+  <jhh-auth-icons></jhh-auth-icons>
+  <jhh-auth-theme-switcher></jhh-auth-theme-switcher>
+</div>
+
+<ng-template #authFormTemplate>
+  <ng-content select="[auth-form]"></ng-content>
+</ng-template>

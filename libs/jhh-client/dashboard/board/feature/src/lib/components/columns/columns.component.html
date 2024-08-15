@@ -1,0 +1,88 @@
+<div
+  *ngIf="_columns && _columns.length"
+  [ngClass]="['columns', breakpoint$ | async]"
+  #horizontalScrollContainer
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  [cdkDropListData]="_columns"
+  (cdkDropListDropped)="dropColumn($event)"
+>
+  <div
+    *ngFor="let column of _columns; trackBy: trackByFn"
+    class="column"
+    [style.border-top-color]="column.color"
+    cdkDrag
+    (cdkDragStarted)="dragStarted()"
+    (cdkDragEnded)="dragEnded()"
+    (cdkDragMoved)="dragMoved($event)"
+  >
+    <div class="column__placeholder" *cdkDragPlaceholder></div>
+
+    <header cdkDragHandle class="column__header">
+      <span
+        *ngIf="column.items.length"
+        class="circleCounter circleCounter--static"
+        [style.background-color]="column.color"
+      >
+        {{column.items.length <= 99 ? column.items.length : '99+'}}
+      </span>
+      <h2>
+        {{column.name}}
+      </h2>
+      <jhh-board-column-menu
+        [column]="column"
+        [fetchItems]="fetchItemsForColumn.bind(this)"
+      ></jhh-board-column-menu>
+    </header>
+
+    <div
+      class="column__items"
+      [id]="'drop-list-' + column.id"
+      #columnItemsContainer
+      cdkDropList
+      [cdkDropListData]="column.items"
+      [cdkDropListConnectedTo]="connectedDropLists"
+      (cdkDropListDropped)="dropItem($event)"
+    >
+
+      <div
+        class="column__item"
+        *ngFor="let item of column.items; trackBy: trackByFn"
+        cdkDrag
+        (cdkDragStarted)="dragStarted()"
+        (cdkDragEnded)="dragEnded()"
+        (cdkDragMoved)="dragMoved($event, columnItemsContainer)"
+      >
+        <div class="column__itemPlaceholder" *cdkDragPlaceholder></div>
+        <ng-container *ngIf="editingItem[item.id]; else viewMode">
+          <mat-form-field>
+            <textarea
+              matInput
+              [(ngModel)]="editableContent[item.id]"
+              (blur)="handleBlur(item)"
+              [maxlength]="boardColumnFieldLength.MaxColumnItemLength"
+              clickOutside
+              (clickOutside)="handleBlur(item)"
+            >
+            </textarea>
+            <mat-hint align="end">{{editableContent[item.id]!.length || 0}}
+              / {{boardColumnFieldLength.MaxColumnItemLength}}</mat-hint>
+          </mat-form-field>
+        </ng-container>
+        <ng-template #viewMode>
+          <p (click)="startEdit(item.id, item.content)">{{item.content || 'Untilted'}}</p>
+          <button mat-icon-button (click)="removeItem(column.id, item.id)">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="column__add">
+      <button mat-button (click)="addItem(column.id)">
+        <mat-icon>add</mat-icon>
+        Add item
+      </button>
+    </div>
+  </div>
+</div>

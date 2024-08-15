@@ -1,0 +1,22 @@
+nav {
+  margin-bottom: 16px;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      a {
+        &:hover {
+          color: inherit;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "jhh-client-shared-config",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jhh-client/shared/config/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/jhh-client/shared/config/**/*.ts",
+          "libs/jhh-client/shared/config/package.json"
+        ]
+      }
+    }
+  },
+  "tags": [
+    "platform:client",
+    "type:client-shared"
+  ]
+}

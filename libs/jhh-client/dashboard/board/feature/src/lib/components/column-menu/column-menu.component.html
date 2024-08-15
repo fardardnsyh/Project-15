@@ -1,0 +1,154 @@
+<ng-container>
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Board column actions"
+    (click)="$event.preventDefault(); $event.stopPropagation();"
+  >
+    <mat-icon>more_horiz</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openEditColumnDialog()">
+      <mat-icon>edit</mat-icon>
+      <span>Edit</span>
+    </button>
+    <button mat-menu-item (click)="handleDuplicate()">
+      <mat-icon>file_copy</mat-icon>
+      <span>Duplicate</span>
+    </button>
+    <button mat-menu-item (click)="openRemoveColumnDialog()">
+      <mat-icon>delete_forever</mat-icon>
+      <span>Remove</span>
+    </button>
+  </mat-menu>
+</ng-container>
+
+<ng-template #removeDialogContent>
+  <h2 mat-dialog-title>Are you sure you want to remove a board column?</h2>
+  <mat-dialog-content>
+    <div class="alert" *ngIf="column.items.length">
+      <mat-icon>error</mat-icon>
+      <p>
+        All items in this column will be gone.
+        <br>
+        If you want to keep them, move them to another column first.
+      </p>
+    </div>
+    <ul>
+      <li>
+        <span>
+          <strong>
+            Name:
+          </strong>
+        </span>
+        <span>{{column.name}}</span>
+      </li>
+      <li>
+        <span>
+          <strong>
+            Created at:
+          </strong>
+        </span>
+        <span>{{column.createdAt | date: 'dd.MM.yyyy HH:mm'}}</span>
+      </li>
+      <li>
+        <span>
+          <strong>
+            Updated at:
+          </strong>
+        </span>
+        <span>{{column.updatedAt | date: 'dd.MM.yyyy HH:mm'}}</span>
+      </li>
+      <li>
+        <span>
+          <strong>
+            Amount of items:
+          </strong>
+        </span>
+        <span>{{column.items.length}}</span>
+      </li>
+    </ul>
+
+    <mat-divider></mat-divider>
+    <ng-container *ngIf="(removeBoardColumnInProgress$ | async) || (removeBoardColumnError$ | async)">
+      <mat-progress-spinner *ngIf="removeBoardColumnInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+      <mat-error *ngIf="removeBoardColumnError$ | async as error">{{ error }}</mat-error>
+    </ng-container>
+
+    <mat-dialog-actions>
+      <button
+        mat-stroked-button
+        mat-dialog-close
+      >
+        Cancel
+      </button>
+      <button
+        mat-flat-button
+        color="warn"
+        (click)="handleRemove()"
+        [disabled]="(removeBoardColumnInProgress$ | async)"
+      >
+        Remove
+      </button>
+    </mat-dialog-actions>
+  </mat-dialog-content>
+</ng-template>
+
+<ng-template #editDialogContent>
+  <h2 mat-dialog-title>Edit column</h2>
+  <mat-dialog-content>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Column name</mat-label>
+        <input matInput [formControlName]="formField.Name" whitespaceSanitizer required/>
+        <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.Required)">
+          Column name is required
+        </mat-error>
+        <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.MinLength)">
+          Minimum length of column name is {{fieldLength.MinColumnNameLength}} characters
+        </mat-error>
+        <mat-error *ngIf="formGroup.get(formField.Name)?.hasError(formErrorKey.MaxLength)">
+          Maximum length of column name is {{fieldLength.MaxColumnNameLength}} characters
+        </mat-error>
+      </mat-form-field>
+
+      <div class="formColorsRow">
+        <mat-form-field class="fieldColor" appearance="fill">
+          <mat-label>Color</mat-label>
+          <input type="color" matInput [formControlName]="formField.Color" required/>
+          <mat-error *ngIf="formGroup.get(formField.Color)?.hasError(formErrorKey.InvalidColor)">
+            Invalid color
+          </mat-error>
+        </mat-form-field>
+
+        <div class="defaultColors">
+          <button
+            type="button"
+            *ngFor="let color of defaultColorValues"
+            [style.background]="color"
+            (click)="selectDefaultColor($any(color))">
+          </button>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="(editBoardColumnInProgress$ | async) || (editBoardColumnError$ | async)">
+        <mat-progress-spinner *ngIf="editBoardColumnInProgress$ | async" mode="indeterminate"></mat-progress-spinner>
+        <mat-error *ngIf="editBoardColumnError$ | async as error">{{ error }}</mat-error>
+      </ng-container>
+
+      <mat-dialog-actions>
+        <button mat-stroked-button mat-dialog-close>Cancel</button>
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="formGroup.invalid || (editBoardColumnInProgress$ | async)"
+        >
+          Save
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </mat-dialog-content>
+</ng-template>

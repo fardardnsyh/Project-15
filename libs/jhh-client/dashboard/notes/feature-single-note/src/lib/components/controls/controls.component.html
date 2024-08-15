@@ -1,0 +1,39 @@
+<ng-container>
+  <button
+    mat-mini-fab
+    color="primary"
+    aria-label="Edit note"
+    matTooltip="Edit note"
+    (click)="openEditNoteDialog()"
+  >
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button
+    *ngIf="(groups$|async)!.length > 1"
+    mat-mini-fab
+    color="primary"
+    aria-label="Change group"
+    matTooltip="Change group"
+    (click)="openChangeNoteGroupDialog()"
+  >
+    <mat-icon>redo</mat-icon>
+  </button>
+  <button
+    mat-mini-fab
+    color="primary"
+    aria-label="Duplicate note"
+    matTooltip="Duplicate note"
+    (click)="handleDuplicate()"
+  >
+    <mat-icon>file_copy</mat-icon>
+  </button>
+  <button
+    mat-mini-fab
+    color="primary"
+    aria-label="Remove note"
+    matTooltip="Remove note"
+    (click)="openRemoveNoteDialog()"
+  >
+    <mat-icon>delete_forever</mat-icon>
+  </button>
+</ng-container>

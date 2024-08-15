@@ -1,0 +1,51 @@
+.password-match-error {
+  margin-bottom: 16px;
+  margin-top: -10px;
+}
+
+.mat-mdc-progress-bar {
+  margin-top: 4px;
+
+  ::ng-deep {
+    .mdc-linear-progress__buffer-bar {
+      opacity: 0.2;
+    }
+  }
+
+  &.strength-25 {
+    ::ng-deep {
+      .mdc-linear-progress__buffer-bar {
+        background-color: var(--color__warn);
+      }
+
+      .mdc-linear-progress__bar-inner {
+        border-color: var(--color__warn);
+      }
+    }
+  }
+
+  &.strength-50 {
+    ::ng-deep {
+      .mdc-linear-progress__buffer-bar {
+        background-color: var(--color__accent);
+      }
+
+      .mdc-linear-progress__bar-inner {
+        border-color: var(--color__accent);
+      }
+    }
+  }
+
+  &.strength-75,
+  &.strength-100 {
+    ::ng-deep {
+      .mdc-linear-progress__buffer-bar {
+        background-color: var(--color__primary);
+      }
+
+      .mdc-linear-progress__bar-inner {
+        border-color: var(--color__primary);
+      }
+    }
+  }
+}

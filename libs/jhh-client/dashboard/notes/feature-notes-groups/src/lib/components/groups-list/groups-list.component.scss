@@ -1,0 +1,66 @@
+.groupsList {
+  $self: &;
+  display: grid;
+  gap: 24px;
+
+  &.tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &.desktop {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  &__item {
+    a {
+      height: 100%;
+      padding: 60px 40px;
+      border-radius: var(--radius__base);
+      background-color: var(--color__bg);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: var(--color__primary);
+        color: white;
+
+        #{ $self }__itemCounter {
+          background-color: var(--color__bg);
+          color: var(--color__text);
+        }
+
+        ::ng-deep {
+          .mdc-icon-button {
+            mat-icon {
+              color: white !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  ::ng-deep {
+    .mdc-icon-button {
+      position: absolute !important;
+      bottom: 15px;
+      right: 15px;
+
+      &:hover {
+        mat-icon {
+          color: white !important;
+        }
+      }
+    }
+  }
+
+  &__itemName {
+    display: block;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 0;
+  }
+}
